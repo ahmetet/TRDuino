@@ -1,0 +1,158 @@
+Üzerinde çalýþ;
+Anahtar kelimeleri baðýmsýz olarak bulup türetme konusunda,
+Demek istediðim bütün anahtar kelimeleri bir havuz içerisie koy
+Baðlantýlarý ayarla (örn: pin kavramý-sayý-çýkýþ/giriþ kavramlarý)
+Daha sonra satýr satýr deðerlendir
+Her Satýr içerisinde{
+Anahtar kelime havuzundaki baðlantýlarý iliþkilendir
+}
+
+Örneðin 3.Satýrda Bir baðlantý bulundu (pin kavramý-sayý-yak) ya da (pin kavramý-sayý-enerji ver) ya da (pin kavramý-sayý-çalýþtýr) gibi
+Baðlantýyý analiz et ve uygula
+
+Sezgisel mantýkla örneðin pin kavramýný gördüðünde ve sayýyý gördüðünde yanýnda bir þeyin eksik olacaðýný anlayacak þekilde programlarsan
+hata tespiti de yapabilirsin
+aksi halde kaba olacaktýr ve kullanýcýyý yönlendiremeyeceksin..
+
+Not Bitiþi : 08.08.2017 02:21 iyi geceler.
+
+-------------------------------------------------------------------------------------------
+
+.ino dosyalarýný derleme ve hex dosyalarýný karta yüklemeyi hallettim.
+Artýk tek yapman gereken dili oluþturmak ve estetikleþtirmek
+hata ayýklama çok farklý bir þekilde olacak ona kendin karar vereceksin
+demek istediðim þu an burada iki farklý debuging iþlemli var birisi senin oluþturduðun dilde
+diðeri ise direk olarak ino çekirdeðinde.
+
+Not Bitiþi : 08.08.2017 17:16
+
+--------------------------------------------------------------------------------------------
+
+Dil bildiðin basit mantýk replace ile oluþturulmaya baþlandý.
+Intellisense olsaydý her þey daha basit olacaktý ama alternatif yollarýný düþüneceksin
+bu arada renklendirme olayýda dolaylý olarak çözüldü
+hata ayýklama sistemine çok karýþmayacaksýn gibime geliyor ama bulacaðýz bir yolunu
+þuan renklendirmeyle uðraþýyorum daha sonra kodlara devam edeceðim
+renklendirmenin daha güncel bir yolunu bulsam hoþ olacak..
+
+Not Bitiþi : 09.08.2017 22:21
+
+--------------------------------------------------------------------------------------------
+Daha farklý þeyler denemek için bazý geçici deðiþiklikler yapýldý;
+Timer1 enabled = False
+Picturebox2.visible = False
+DoðrulaDerleToolStripMenuItem.visible = False
+Form1.vb AnaTab -> BabaTab ile deðiþtirildi
+Form1.vb Richtextbox1 -> Poortextbox1
+AnaTab.text = Geçici
+Richtextbox1.text ="" 
+ORJÝNAL
+Sýnýf Ayarlar(){
+// Buraya bir kere yapýlacak iþlemler yazýlacak..
+
+}
+Sýnýf Tekrarlar(){
+// Buraya sürekli tekrar edilecek iþlemler yazýlacak..
+
+}
+
+Richtextbox1.visible=false
+AnaTab silindi
+  Yeni Komutlar Eklendi
+  Renklendirme düzenlendi
+  Sadece Derleme eklendi /Çalýþtýrdan baðýmsýz olarak
+  Derleme gecikme iþlemi 1 saniyeye düþürüldü (3saniyeden)
+  Derleme sonu mesaj eklendi
+  CTRL+S'ye renklendirme eklendi
+  Enter'a renklendirme eklendi
+
+   Ust1.BackColor = Color.FromArgb(255, 0, 100, 104)  'dan MidnightBlue 'ya
+   Ust2.BackColor = Color.FromArgb(255, 23, 161, 165) 'dan Cornflowerblue'ya deðiþtirildi.
+   Alt1.BackColor = Color.FromArgb(255, 23, 161, 165) 'dan Cornflowerblue'ya
+   Alt3.BackColor = Color.FromArgb(255, 0, 100, 104)  'dan MidnightBlue 'ya deðiþtirildi.
+   Bunlarý bütün sayfada deðiþtirdiðimi unutma(ctrl+h)
+  ElseIf (toplam_acik_parantez > toplam_kapali_parantez) Then
+            Alt1.BackColor = Color.Orange
+            log.ForeColor = Color.Orange
+            durum.Text = "Derleme sýrasýnda hata meydana geldi!"
+            log.Text += vbNewLine + "Süslü parantezleri kapatmayý unutmuþsunuz!" + vbNewLine
+  ElseIf (toplam_kapali_parantez > toplam_acik_parantez) Then
+            Alt1.BackColor = Color.Orange
+            log.ForeColor = Color.Orange
+            durum.Text = "Derleme sýrasýnda hata meydana geldi!"
+            log.Text += vbNewLine + "Süslü parantezleri açmayý unutmuþsunuz!" + vbNewLine
+  End If
+  Satýrlarý
+   ElseIf (toplam_acik_parantez > toplam_kapali_parantez) Then
+            Alt1.BackColor = Color.Aqua
+            log.ForeColor = Color.Aqua
+            durum.Text = "Derleme sýrasýnda hata meydana geldi!"
+            log.Text += vbNewLine + "Süslü parantezleri kapatmayý unutmuþsunuz!" + vbNewLine
+   ElseIf (toplam_kapali_parantez > toplam_acik_parantez) Then
+            Alt1.BackColor = Color.Aqua
+            log.ForeColor = Color.Aqua
+            durum.Text = "Derleme sýrasýnda hata meydana geldi!"
+            log.Text += vbNewLine + "Süslü parantezleri açmayý unutmuþsunuz!" + vbNewLine
+   End If
+   Ýle deðiþtirildi.
+
+   Ýki yeni Fonksiyon yazýldý (Kelime,Ekle) 
+   Oto ekleme iþlemelri için
+   Font deðiþtirildi ( Eskisini unuttum vallah)
+   
+
+   Yeni Komutlar Eklendi;
+   Aktif = 1
+   Pasif = 0
+   (BUNLARI DOLAYLI YOLDAN EKLEDÝK ÞÖYLE DÝYEYÝM)
+   Dim b As Integer = 0
+            While (b < asilislem.Lines.Length)
+                If (asilislem.Lines(b).ToLower.Contains("yaz") And asilislem.Lines(b).ToLower.Contains("aktif")) Then
+                    'satýr b
+                    Dim sonhal As String = asilislem.Lines(b).Replace("yaz", "digitalWrite")
+                    Degis(sonhal, b, asilislem)
+                ElseIf (asilislem.Lines(b).ToLower.Contains("yaz") And asilislem.Lines(b).ToLower.Contains("pasif")) Then
+                    'satýr b
+                    Dim sonhal As String = asilislem.Lines(b).Replace("yaz", "digitalWrite")
+                    Degis(sonhal, b, asilislem)
+
+                End If
+                b += 1
+   End While
+
+   Kullanýcýyý ilgileniren komutlar;
+   Aktif = 1
+   Pasif = 0
+   Yaz(Pin,Aktif | Pasif | 0~255 )
+
+   Derlemedeki iki kere sorunu çözüldü
+   PinMode'daki iki kere sorunu çözüldü
+
+   .ino Dýþýnda .ahm 'lý dosyanýn da kaydolmasý lazým hallet bir ara. ' BÝR ARA ÇÖZÜLECEK
+   Ayrýca sonradan eklenen outputlar ikinci derlemede kaale alýnýyor derle iki kere geri mi gelecek :( ' EVET GERÝ GELDÝ AMAA PROBLEM DEÐÝL
+
+
+   Ýç içe fonksiyonlarýn bazýlarýnda hata var örneðin;
+   Yaz(13,Oku(15,Dijital))
+   Gibi Onu çöz
+
+   Oku(Pin,Dijital | Analog)
+   eklendi
+
+
+   Not Bitiþi : 19.11.2017 05:13 (Evet tam olarak 6 saat aralýksýz kod yazdým)
+
+--------------------------------------------------------------------------------------------
+
+	Derleme ve Yükleme iþlemleri gözden geçirildi
+	Upload yenilendi.
+	Program Arduino kurulu bilgisayarlarda çalýþýr hale getirildi;
+		Demek istediðim,bir bilgisayarda arduino yoksa program çalýþmayacak
+		Var ise upload için direkt olarak arduino kullanýlacak ( bg iþlemleri )
+
+ 
+ -------------------------------------------------------------------------------------------
+
+ O kadar çok ilerledim ki yazamýyorum artýk..
+
+ bitiþcik: 26.11.2017 00:56

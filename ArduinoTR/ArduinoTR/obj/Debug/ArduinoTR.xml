@@ -1,0 +1,47 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+ArduinoTR
+</name>
+</assembly>
+<members>
+<member name="T:ArduinoTR.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:ArduinoTR.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:ArduinoTR.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:ArduinoTR.My.Resources.Resources.minitick">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="T:ArduinoTR.Form1.DeclarationSnippet">
+ <summary>
+ This item appears when any part of snippet text is typed
+ </summary>
+</member>
+<member name="T:ArduinoTR.Form1.InsertSpaceSnippet">
+ <summary>
+ Divides numbers and words: "123AND456" -> "123 AND 456"
+ Or "i=2" -> "i = 2"
+ </summary>
+</member>
+<member name="T:ArduinoTR.Form1.InsertEnterSnippet">
+ <summary>
+ Inerts line break after '}'
+ </summary>
+</member>
+</members>
+</doc>

@@ -1,0 +1,15 @@
+c:\users\hp\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\bin\Debug\ArduinoTR.exe.config
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\bin\Debug\ArduinoTR.exe
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\bin\Debug\ArduinoTR.pdb
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\bin\Debug\ArduinoTR.xml
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\obj\Debug\ArduinoTR.vbprojResolveAssemblyReference.cache
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\obj\Debug\ArduinoTR.Form1.resources
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\obj\Debug\ArduinoTR.Resources.resources
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\obj\Debug\ArduinoTR.vbproj.GenerateResource.Cache
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\obj\Debug\ArduinoTR.exe
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\obj\Debug\ArduinoTR.xml
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\obj\Debug\ArduinoTR.pdb
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\obj\Debug\ArduinoTR.SerialEkran.resources
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\bin\Debug\FastColoredTextBox.dll
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\bin\Debug\TabStrip.dll
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\bin\Debug\FastColoredTextBox.xml
