@@ -13,3 +13,6 @@ Blok taslağı eklendi ( Opsiyonel Geliştirme Ortamı ).
 
 Derle ve Yükle kısayolu eklendi ( CTRL + U ve CTRL + F5)
 
+Referans dosyası ekleme ( .trr / .cpp / .h ) buglar giderildi.
+
+Referans dosyası eklerken cpp dosyalarının içerisindeki include'lar boşaltıldı.
