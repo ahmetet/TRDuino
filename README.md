@@ -6,6 +6,7 @@ ArduinoTR\ArduinoTR\bin\Debug klasöründeki TRDuino.zip dosyasını C'ye çıka
 
 
 02.02.2018 --->>>
+
 Upload bugları giderildi.
 
 Blok taslağı eklendi ( Opsiyonel Geliştirme Ortamı ).
