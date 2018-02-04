@@ -13,3 +13,4 @@ C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\obj\Debug\
 C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\bin\Debug\FastColoredTextBox.dll
 C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\bin\Debug\TabStrip.dll
 C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\bin\Debug\FastColoredTextBox.xml
+C:\Users\HP\documents\visual studio 2015\Projects\ArduinoTR\ArduinoTR\obj\Debug\ArduinoTR.Form2.resources

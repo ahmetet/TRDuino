@@ -310,9 +310,11 @@ gell:
     Dim keyboard_S As Boolean
     Dim keyboard_N As Boolean
     Dim keyboard_O As Boolean
+    Dim keyboard_U As Boolean
     Dim keyboard_W As Boolean
     Dim keyboard_Q As Boolean
     Dim keyboard_F5 As Boolean
+    Dim keyboard_D As Boolean
     Dim keyboard_Z As Boolean
     Dim keyboard_Y As Boolean
     Dim keyboard_space As Boolean
@@ -335,6 +337,11 @@ gell:
         'If e.KeyCode = Keys.Enter Then
         '    Renklendir()
         'End If
+
+
+
+
+
 
         If e.KeyCode = Keys.ControlKey Then
             keyboard_control = True
@@ -390,6 +397,13 @@ gell:
                 keyboard_control = False
                 keyboard_F5 = False
             End If
+        ElseIf (e.KeyCode = Keys.U) Then
+            keyboard_U = True
+            If (keyboard_control = True) Then
+                DoğrulaDerleToolStripMenuItem.PerformClick()
+                keyboard_control = False
+                keyboard_U = False
+            End If
         ElseIf (e.KeyCode = Keys.Z) Then
             keyboard_Z = True
             If (keyboard_control = True) Then
@@ -405,8 +419,59 @@ gell:
                 keyboard_Y = False
             End If
 
+        ElseIf (e.KeyCode = Keys.D) Then
 
-        Else
+            'Eğer seçilen şey daha önce tanımlanmadıysa,o seçilen isimde yeni bir değişken tanımlar.
+            'daha önce tanımlandıysa direk o şeye bürünür
+            'Burada "Değişken" anahtar kelimesini kullanarak ide'ye "var" eklemiş oluyorum :))
+
+            keyboard_D = True
+
+            If (keyboard_control = True) Then
+
+                'Eğer seçilen değişken daha önce tanımlandıysa/tanımlanmadıysa
+                For Each degiskencik In _degiskenler.Items
+                        'tür@değişken_adı@değişken_değeri
+                        If (degiskencik.ToString.Split("@")(1).ToString = BestTextBox.SelectedText.ToString) Then
+                            'Burada değiştirme öne sürülebilir ilerleyen zaamanlarda.
+                            GoTo bitir
+                        End If
+                    Next
+
+
+                    Dim degisken_adi As String = "" 'değişken adı
+                    Dim eskiyer As Integer = BestTextBox.SelectionStart ' eskiyeri sapta
+
+                    'Eğer seçilen şey hiçbir şeyse/değilse
+                    If (BestTextBox.SelectedText.Trim = "") Then
+                        'hiçbir şey seçmediin demek ya da boşluk seçtin demek
+                    Else
+                        degisken_adi = BestTextBox.SelectedText
+                    End If
+
+
+                    Dim degisken_deger As String = InputBox("Lütfen '" + degisken_adi + "' değişkenine verilecek değeri giriniz;", "Hızlı Değişken")
+                    If (Not degisken_deger.Trim = "") Then ' eğer değişken değeri hiçbir şey girilmediyse ya da boşluk girilmediyse
+                        BestTextBox.SelectedText = degisken_adi
+                        EnUsteGit_Ve_Ekle("Değişken " + degisken_adi + " = " + degisken_deger + ";")
+                        Dim _DEGISKEN As String = "Değişken@" + degisken_adi + "@" + degisken_deger
+                        _degiskenler.Items.Add(_DEGISKEN)
+                        BestTextBox.SelectionStart = eskiyer + degisken_adi.Length + 2  'eski yere git
+                        'islem bitir
+                    End If
+
+
+
+bitir:
+                    keyboard_control = False
+                    keyboard_D = False
+                End If
+
+
+
+
+
+            Else
             keyboard_control = False
             sense.Visible = False
         End If
@@ -479,12 +544,12 @@ gell:
 
     Private Sub AçCTRLOToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AçCTRLOToolStripMenuItem.Click
         Try
-            OpenFileDialog1.Filter = "*Arduino Kod Dosyası(*.ino)|*.ino|*TRduino Kod Dosyası(*.tr)|*.tr"
+            OpenFileDialog1.Filter = "TRduino Kod Dosyası(*.tr)|*.tr|Arduino Kod Dosyası(*.ino)|*.ino"
 
             If (OpenFileDialog1.ShowDialog = DialogResult.OK) Then
                 Poortextbox1_yedek.LoadFile(OpenFileDialog1.FileName, RichTextBoxStreamType.PlainText)
                 BestTextBox.Text = Poortextbox1_yedek.Text
-                If (OpenFileDialog1.FilterIndex = 2) Then
+                If (OpenFileDialog1.FilterIndex = 1) Then
 
                     '   BestTextBox.Text = BestTextBox.Text.Replace("fonksiyon ayarlar", "void setup").Replace("fonksiyon tekrarlar", "void loop").Replace("pindurumu", "pinMode").Replace("çıkış", "OUTPUT").Replace("giriş", "INPUT").Replace("bekle", "delay").Replace("söndür", "LOW").Replace("yak", "HIGH").Replace("analogoku", "analogRead").Replace("dijitaloku", "digitalRead").Replace("iletişim", "Serial").Replace(".başlat", ".begin").Replace(".hazırsa", ".available").Replace("eğer", "if").Replace("ya da", "else if").Replace("aksi halde", "else").Replace("değilse", "else").Replace(".gönderasg", ".println").Replace(".gönder", ".print").Replace(".oku", ".read").Replace(".bitir", ".end").Replace("doğru", "true").Replace("yanlış", "false").Replace("gömülü_led", "LED_BUILTIN").Replace("karttaki_led", "LED_BUILTIN").Replace("bayta_dönüştür", "byte").Replace("karaktere_dönüştür", "char").Replace("reel_sayıya_dönüştür", "float").Replace("tam_sayıya_dönüştür", "int").Replace("kelimeye_dönüştür", "String").Replace("dizi", "array").Replace("mantıksal", "boolean").Replace("karakter", "char").Replace("reel sayı", "float").Replace("tam sayı", "int").Replace("kelime", "string").Replace("pozitif karakter", "unsigned char").Replace("pozitif tam sayı", "unsigned int").Replace("mantıksal fonksiyon", "bool").Replace("kelime fonksiyon", "String").Replace("karakter fonksiyon", "char").Replace("reel sayı fonksiyon", "float").Replace("tam sayı fonksiyon", "int").Replace("fonksiyon", "void").Replace("sabit", "const").Replace("giriş_pullup", "INPUT_PULLUP").Replace("a0", "A0").Replace("a1", "A1").Replace("a2", "A2").Replace("a3", "A3").Replace("a4", "A4").Replace("a5", "A5").Replace("a6", "A6").Replace("a7", "A7").Replace("a8", "A8")
 
@@ -532,7 +597,7 @@ gell:
     Private Sub FormKapanmadan(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If (SonKarakter(BabaTab.Text, 0) = "*") Then
             If (tempyol = "yok") Then
-                SaveFileDialog1.Filter = "Arduino Kod Dosyası(*.ino)|*.ino|TRduino Kod Dosyası(*.tr)|*.tr"
+                SaveFileDialog1.Filter = "TRduino Kod Dosyası(*.tr)|*.tr|Arduino Kod Dosyası(*.ino)|*.ino"
                 If (tempyol = "yok") Then
                     If (SaveFileDialog1.ShowDialog = DialogResult.OK) Then
                         Poortextbox1_yedek.Text = BestTextBox.Text
@@ -549,7 +614,7 @@ gell:
                 KaydetToolStripMenuItem.PerformClick()
             End If
         Else
-            SaveFileDialog1.Filter = "Arduino Kod Dosyası(*.ino)|*.ino|TRduino Kod Dosyası(*.tr)|*.tr"
+            SaveFileDialog1.Filter = "TRduino Kod Dosyası(*.tr)|*.tr|Arduino Kod Dosyası(*.ino)|*.ino"
             If (tempyol = "yok") Then
                 If (SaveFileDialog1.ShowDialog = DialogResult.OK) Then
                     Poortextbox1_yedek.Text = BestTextBox.Text
@@ -599,6 +664,56 @@ gell:
             '  asilislem.Text = ızgara.Replace("fonksiyon ayarlar", "void setup").Replace("fonksiyon tekrarlar", "void loop").Replace("pindurumu", "pinMode").Replace("çıkış", "OUTPUT").Replace("giriş", "INPUT").Replace("bekle", "delay").Replace("söndür", "LOW").Replace("yak", "HIGH").Replace("analogoku", "analogRead").Replace("dijitaloku", "digitalRead").Replace("iletişim", "Serial").Replace(".başlat", ".begin").Replace(".hazırsa", ".available").Replace("eğer", "if").Replace("ya da", "else if").Replace("aksi halde", "else").Replace("değilse", "else").Replace(".gönderasg", ".println").Replace(".gönder", ".print").Replace(".oku", ".read").Replace(".bitir", ".end").Replace("doğru", "true").Replace("yanlış", "false").Replace("gömülü_led", "LED_BUILTIN").Replace("karttaki_led", "LED_BUILTIN").Replace("bayta_dönüştür", "byte").Replace("karaktere_dönüştür", "char").Replace("reel_sayıya_dönüştür", "float").Replace("tam_sayıya_dönüştür", "int").Replace("kelimeye_dönüştür", "String").Replace("dizi", "array").Replace("mantıksal", "boolean").Replace("karakter", "char").Replace("reel sayı", "float").Replace("tam sayı", "int").Replace("kelime", "string").Replace("pozitif karakter", "unsigned char").Replace("pozitif tam sayı", "unsigned int").Replace("mantıksal fonksiyon", "bool").Replace("kelime fonksiyon", "String").Replace("karakter fonksiyon", "char").Replace("reel sayı fonksiyon", "float").Replace("tam sayı fonksiyon", "int").Replace("fonksiyon", "void").Replace("sabit", "const").Replace("giriş_pullup", "INPUT_PULLUP").Replace("a0", "A0").Replace("a1", "A1").Replace("a2", "A2").Replace("a3", "A3").Replace("a4", "A4").Replace("a5", "A5").Replace("a6", "A6").Replace("a7", "A7").Replace("a8", "A8").Replace("bayt", "byte")
             '  asilislem.Text = Regex.Replace(Poortextbox1_yedek.Text, "fonksiyon ayarlar", "void setup", RegexOptions.IgnoreCase)
 
+
+            'Her şeyin öncesinde 'var' yani "Değişken" anahtar kelimesini düzgün bir şekilde optimize et;
+
+
+            Dim temb As Integer = 0
+            While (temb < Poortextbox1_yedek.Lines.Length)
+
+                If (Poortextbox1_yedek.Lines(temb).ToLower.Contains("değişken")) Then
+
+                    Dim k As String = Poortextbox1_yedek.Lines(temb)
+                    Poortextbox1_yedek.Find(k)
+
+
+                    Dim dadi As String = Regex.Replace(Poortextbox1_yedek.SelectedText, "değişken", "", RegexOptions.IgnoreCase).Split("=")(0).Trim
+                    Dim ddegeri As String = Regex.Replace(Poortextbox1_yedek.SelectedText, "değişken", "", RegexOptions.IgnoreCase).Split("=")(1).Trim.Replace(";", "")
+                    'Poortextbox1_yedek.SelectedText = Regex.Replace(k, "değişken", " ", RegexOptions.IgnoreCase)
+
+
+                    Dim intcik As Integer
+                    Dim doublecik As Double
+
+                    If (Integer.TryParse(ddegeri, intcik)) Then
+                        '  MsgBox(" Tam Sayı")
+                        Poortextbox1_yedek.SelectedText = Regex.Replace(k, "değişken", "Tam Sayı", RegexOptions.IgnoreCase)
+                    ElseIf (Double.TryParse(ddegeri, doublecik)) Then
+                        '       MsgBox("Reel Sayı")
+                        Poortextbox1_yedek.SelectedText = Regex.Replace(k, "değişken", "Reel Sayı", RegexOptions.IgnoreCase)
+                    ElseIf (ddegeri.ToLower = "doğru") Then
+                        '      MsgBox("doğru Mantıksal")
+                        Poortextbox1_yedek.SelectedText = Regex.Replace(k, "değişken", "Mantıksal", RegexOptions.IgnoreCase)
+                    ElseIf (ddegeri.ToLower = "yanlış") Then
+                        'MsgBox("yanlış Mantıksal")
+                        Poortextbox1_yedek.SelectedText = Regex.Replace(k, "değişken", "Mantıksal", RegexOptions.IgnoreCase)
+                    ElseIf (ddegeri.Contains("'")) Then
+                        '    MsgBox("Karatker")
+                        Poortextbox1_yedek.SelectedText = Regex.Replace(k, "değişken", "Karakter", RegexOptions.IgnoreCase)
+                    ElseIf (ddegeri.Contains("""")) Then
+                        '  MsgBox("Kelime")
+                        Poortextbox1_yedek.SelectedText = Regex.Replace(k, "değişken", "Kelime", RegexOptions.IgnoreCase)
+                    End If
+
+
+
+                End If
+
+                    temb += 1
+            End While
+
+
+
 adim1:
 
             If (referans_bayrak = 1) Then
@@ -646,7 +761,7 @@ adim1:
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "karakter", "char", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "reel sayı", "float", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "tam sayı", "int", RegexOptions.IgnoreCase)
-            Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "kelime", "string", RegexOptions.IgnoreCase)
+            Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "kelime", "String", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "pozitif karakter", "unsigned char", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "pozitif tam sayı", "unsigned int", RegexOptions.IgnoreCase)
 
@@ -663,6 +778,9 @@ adim1:
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "a8", "A8", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "bayt", "byte", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "döndür", "return", RegexOptions.IgnoreCase)
+
+
+
 
             'Yaz(15,aktif)
             'yaz(13,pasif)
@@ -704,6 +822,8 @@ adim1:
                     Poortextbox1_yedek.Find(k)
                     Poortextbox1_yedek.SelectedText = Regex.Replace(k, "yaz", "analogWrite", RegexOptions.IgnoreCase)
 
+                ElseIf (Poortextbox1_yedek.Lines(b2).ToLower.Contains("özeleğer")) Then
+                    MsgBox("annen")
                 End If
 
                 b2 += 1
@@ -736,6 +856,47 @@ adim1:
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "pasif", "0", RegexOptions.IgnoreCase) 'fark ettiysen method değiştirdik kendi içinden çevirdik ' ikinci kez okuduğumda anlamadım yav fadsdghf
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "yak", "1", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "söndür", "0", RegexOptions.IgnoreCase)
+
+
+
+
+
+
+
+            'TERNARY İF'i 
+
+
+            'Dim say As Integer = 0
+            'While (say < Poortextbox1_yedek.Lines.Length)
+
+            '    If (Regex.IsMatch(Poortextbox1_yedek.Lines(say), "(özeleğer|Özeleğer|ÖzelEğer|ÖZELEĞER)", RegexOptions.IgnoreCase)) Then
+            '        MsgBox("yes")
+            '        'satır say
+            '        'ÖzelEğer(şart,olumlu,olumsuz)
+            '        'ahmet>3 ? HIGH : LOW
+            '        'ÖzelEğer(ahmet>3,HIGH,LOW)
+            '        Dim eldeki_satir As String = Poortextbox1_yedek.Lines(say)
+            '        eldeki_satir = Regex.Split(eldeki_satir, "özeleğer", RegexOptions.IgnoreCase)(1)
+            '        eldeki_satir = eldeki_satir.Replace("(", "").Replace(")", "")
+            '        Dim eldeki_satir_sart As String = eldeki_satir.Split(",")(0)
+            '        Dim eldeki_satir_olumlu As String = eldeki_satir.Split(",")(1)
+            '        Dim eldeki_satir_olumsuz As String = eldeki_satir.Split(",")(2)
+            '        MsgBox(eldeki_satir_sart)
+            '        MsgBox(eldeki_satir_olumlu)
+            '        MsgBox(eldeki_satir_olumsuz)
+            '        'Dim sonhal As String = Poortextbox1_yedek.Lines(say).Replace("özeleğer(", "analogWrite")
+            '        'Dim k As String = Poortextbox1_yedek.Lines(say)
+            '        'Poortextbox1_yedek.Find(k)
+            '        'Poortextbox1_yedek.SelectedText = Regex.Replace(k, "yaz", "analogWrite", RegexOptions.IgnoreCase)
+
+            '    End If
+
+            '    say += 1
+            'End While
+
+            'TERNARY İF'i  bitir
+
+
 
             'Oku(pin,şekil)
             'OKu(13,Analog)
@@ -961,10 +1122,18 @@ gecis_izni:
     Dim tahtasec As String = ""
 
     ' Dim Evrensel As String = "C:\TRduino"
-    Dim Evrensel As String = Application.StartupPath + "\TRduino"
-    Dim TempYolu As String = Application.StartupPath + "\ArduAhmetTemp"
+    Dim Evrensel As String = "C:\TRduino" 'Application.StartupPath + "\TRduino"
+    Dim TempYolu As String = "C:\ArduAhmetTemp" 'Application.StartupPath + "\ArduAhmetTemp"
     Private Sub Yukle()
+        Try
+            For Each item In Process.GetProcesses
+                If (item.ProcessName.ToString() = "cmd") Then
+                    item.Kill()
+                End If
+            Next
+        Catch ex As Exception
 
+        End Try
         If My.Computer.FileSystem.FileExists(Evrensel + "\tempburaya") Then
 
         Else
@@ -1010,15 +1179,26 @@ tekrargel:
                             'Devam
 
                             'İLK BUİLD
-                            Dim AhmetSon As String = Evrensel + "\arduino-builder -dump-prefs -logger=machine -hardware " + Evrensel + "\hardware -tools" + Evrensel + "\tools-builder -tools " + Evrensel + "\hardware\tools\avr -built-in-libraries " + Evrensel + "\libraries -fqbn=arduino:avr:nano:cpu=atmega328 -build-path " + Evrensel + "\tempburaya -warnings=none -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.avr-gcc.path=" + Evrensel + "\hardware\tools\avr -prefs=runtime.tools.avrdude.path=" + Evrensel + "\hardware\tools\avr -prefs=runtime.tools.arduinoOTA.path=" + Evrensel + "\hardware\tools\avr -verbose " + TempYolu + "\ArduAhmetTemp.ino"
+                            Dim avrcik As String = ""
+                            If (tahtasec = "nano") Then
+                                avrcik = "nano"
+                            ElseIf (tahtasec = "uno") Then
+                                avrcik = "uno"
+                            End If
+
+                            Dim AhmetSon As String = Evrensel + "\arduino-builder -dump-prefs -logger=machine -hardware " + Evrensel + "\hardware -tools" + Evrensel + "\tools-builder -tools " + Evrensel + "\hardware\tools\avr -built-in-libraries " + Evrensel + "\libraries -fqbn=arduino:avr:" + avrcik + ":cpu=atmega328 -build-path " + Evrensel + "\tempburaya -warnings=none -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.avr-gcc.path=" + Evrensel + "\hardware\tools\avr -prefs=runtime.tools.avrdude.path=" + Evrensel + "\hardware\tools\avr -prefs=runtime.tools.arduinoOTA.path=" + Evrensel + "\hardware\tools\avr -verbose " + TempYolu + "\ArduAhmetTemp.ino"
                             'İKİNCİ BUİLD + HEX
-                            Dim AhmetSon2 As String = Evrensel + "\arduino-builder -compile -logger=machine -hardware " + Evrensel + "\hardware -tools " + Evrensel + "\tools-builder -tools " + Evrensel + "\hardware\tools\avr -built-in-libraries " + Evrensel + "\libraries -fqbn=arduino:avr:nano:cpu=atmega328 -build-path " + Evrensel + "\tempburaya -warnings=none -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.avr-gcc.path=" + Evrensel + "\hardware\tools\avr -prefs=runtime.tools.avrdude.path=" + Evrensel + "\hardware\tools\avr -prefs=runtime.tools.arduinoOTA.path=" + Evrensel + "\hardware\tools\avr -verbose " + TempYolu + "\ArduAhmetTemp.ino"
+                            Dim AhmetSon2 As String = Evrensel + "\arduino-builder -compile -logger=machine -hardware " + Evrensel + "\hardware -tools " + Evrensel + "\tools-builder -tools " + Evrensel + "\hardware\tools\avr -built-in-libraries " + Evrensel + "\libraries -fqbn=arduino:avr:" + avrcik + ":cpu=atmega328 -build-path " + Evrensel + "\tempburaya -warnings=none -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.avr-gcc.path=" + Evrensel + "\hardware\tools\avr -prefs=runtime.tools.avrdude.path=" + Evrensel + "\hardware\tools\avr -prefs=runtime.tools.arduinoOTA.path=" + Evrensel + "\hardware\tools\avr -verbose " + TempYolu + "\ArduAhmetTemp.ino"
+
+
                             'AVRDUDE İLE UPLOAD
                             ' Dim inoyolu As String = "C:\ArduAhmetTemp\ArduAhmetTemp.ino"
                             '  Dim komutYeni As String = ARDUYOL + "\arduino --board arduino:avr:" + tahta + " --port " + SecilenPort + " --upload " + inoyolu
                             '  Dim komutYeni As String = ARDUYOL + "\arduino --board arduino:avr:" + tahta + " --port " + SecilenPort + " --upload " + inoyolu
 
                             'BİTİR 
+
+
                             Shell("cmd.exe /c " + AhmetSon)
                             Threading.Thread.Sleep(1000)
                             ProgressBar1.Visible = True
@@ -1027,15 +1207,32 @@ tekrargel:
                             durum.Text = "Karta yükleme işlemleri başlıyor!"
                             Alt1.BackColor = Color.CornflowerBlue
                             log.ForeColor = Color.White
+
                             Shell("cmd.exe /c " + AhmetSon2)
                             log.Text += "Karta yükleme işlemleri için son kontroller yapılıyor! 19" + vbNewLine
                             durum.Text = "Karta yükleme işlemleri için son kontroller yapılıyor!"
                             Alt1.BackColor = Color.CornflowerBlue
                             log.ForeColor = Color.White
+
                             ProgressBar1.Value = 65
+process_bitsin_bekle:
+
+                            Threading.Thread.Sleep(1000)
+
+                            For Each item In Process.GetProcesses
+                                If (item.ProcessName.ToString() = "cmd") Then
+                                    GoTo process_bitsin_bekle
+                                End If
+                            Next
+
+                            For Each item In Process.GetProcesses
+                                If (item.ProcessName.ToString() = "cmd") Then
+                                    item.Kill()
+                                End If
+                            Next
+
+                            Threading.Thread.Sleep(500)
                             Uploadtimer.Enabled = True
-
-
 
                         End If
 
@@ -1485,12 +1682,14 @@ tekrargel:
         keywords2.Add("Kelime")
         keywords2.Add("Pozitif Tam Sayı")
         keywords2.Add("Pozitif Karakter")
+        keywords2.Add("Değişken")
 
         tanimlama_keywords.Add("Dizi")
         tanimlama_keywords.Add("Mantıksal")
         tanimlama_keywords.Add("Bayt")
         tanimlama_keywords.Add("Karakter")
         tanimlama_keywords.Add("Reel Sayı")
+        tanimlama_keywords.Add("Tam Sayı")
         tanimlama_keywords.Add("Tam Sayı")
         tanimlama_keywords.Add("Kelime")
         tanimlama_keywords.Add("Pozitif Tam Sayı")
@@ -1618,7 +1817,7 @@ tekrargel:
         Private enterPlace As Place = Place.Empty
 
         Public Sub New()
-            MyBase.New("[Line break]")
+            MyBase.New("[Alt Satıra Geç]")
         End Sub
 
         Public Overrides Function Compare(ByVal fragmentText As String) As CompareResult
@@ -1654,7 +1853,7 @@ tekrargel:
 
         Public Overrides Property ToolTipTitle() As String
             Get
-                Return "Insert line break after '}'"
+                Return "'}' Dan sonra satır ekle"
             End Get
             Set(ByVal value As String)
             End Set
@@ -1688,7 +1887,7 @@ tekrargel:
         CType(sender, FastColoredTextBox).Range.SetStyle(Me.Kontrol, "\b(değilse|eğer|aksi halde|ya da)\b", RegexOptions.IgnoreCase) ' Uygula
         CType(sender, FastColoredTextBox).Range.SetStyle(Me.IOlar, "\b(DÖNDÜR|döndür|Döndür|DOĞRU|YANLIŞ|GÖMÜLÜ_LED|KARTTAKİ_LED|ÇIKIŞ|GİRİŞ|GİRİŞ_PULLUP|AKTİF|PASİF|SÖNDÜR|YAK)\b", RegexOptions.IgnoreCase) ' Uygula
         CType(sender, FastColoredTextBox).Range.SetStyle(Me.Fonksiyonn, "\b(fonksiyon)\b", RegexOptions.IgnoreCase) ' Uygula
-        CType(sender, FastColoredTextBox).Range.SetStyle(Me.Tanımlamalar, "\b(Dizi|Mantıksal|Bayt|Karakter|Reel Sayı|Tam Sayı|Kelime|Pozitif Tam Sayı|Pozitif Karakter)\b", RegexOptions.IgnoreCase) ' Uygula
+        CType(sender, FastColoredTextBox).Range.SetStyle(Me.Tanımlamalar, "\b(Dizi|Mantıksal|Bayt|Karakter|Reel Sayı|Tam Sayı|Kelime|Pozitif Tam Sayı|Pozitif Karakter|Değişken)\b", RegexOptions.IgnoreCase) ' Uygula
         CType(sender, FastColoredTextBox).Range.SetStyle(Me.AnaKomutlar, "\b(Yaz|PinDurumu|DijitalOku|AnalogOku|Bekle|Döngü)\b", RegexOptions.IgnoreCase) ' Uygula
         CType(sender, FastColoredTextBox).Range.SetStyle(Me.İletişim, "\b(iletişim)\b", RegexOptions.IgnoreCase) ' Uygula
         CType(sender, FastColoredTextBox).Range.SetStyle(Me.İletişimKomutları, "\b(başlat|gönder|gönderasg|hazırsa|bitir|oku)\b", RegexOptions.IgnoreCase) ' Uygula
@@ -1697,7 +1896,7 @@ tekrargel:
         For Each found As Range In CType(sender, FastColoredTextBox).GetRanges("\b(fonksiyon|FONKSİYON|Fonksiyon)\s+(?<range>\w+)\b")
             CType(sender, FastColoredTextBox).Range.SetStyle(Me.FonksiyonAd, "\b" + found.Text + "\b")
         Next
-        For Each found As Range In CType(sender, FastColoredTextBox).GetRanges("\b(Dizi|Mantıksal|Bayt|Karakter|Reel Sayı|Tam Sayı|Kelime|Pozitif Tam Sayı|Pozitif Karakter)\s+(?<range>\w+)\b", RegexOptions.IgnoreCase)
+        For Each found As Range In CType(sender, FastColoredTextBox).GetRanges("\b(Dizi|Mantıksal|Bayt|Karakter|Reel Sayı|Tam Sayı|Kelime|Pozitif Tam Sayı|Pozitif Karakter|Değişken)\s+(?<range>\w+)\b", RegexOptions.IgnoreCase)
             CType(sender, FastColoredTextBox).Range.SetStyle(Me.DEGISKEN, "\b" + found.Text + "\b")
         Next
 
@@ -1765,8 +1964,15 @@ tekrargel:
     End Sub
 
     Private Sub Uploadtimer_Tick(sender As Object, e As EventArgs) Handles Uploadtimer.Tick
-        If (Process.GetProcessesByName("cmd").Count > 0) Then ' Eğer cmd açıksa
+tekrar_kontrol:
 
+        If (Process.GetProcessesByName("cmd").Count > 0) Then ' Eğer cmd açıksa
+            For Each item In Process.GetProcesses
+                If (item.ProcessName.ToString() = "cmd") Then
+                    item.Kill()
+                End If
+            Next
+            GoTo tekrar_kontrol
         Else ' cemede kapalıysa
             Uploadtimer.Enabled = False
             ProgressBar1.Value = 75
@@ -1774,18 +1980,44 @@ tekrargel:
             'iletisim_hizi=57600 nano
             'iletisim_hizi=9600 unodur sanırım
             'NOT -F -V sonradan eklendi doğrulamayı ve diğer saçmalığı deaktifleştirmek için 
-            If tahtasec = "uno" Then
+
+            Dim AhmetSon3 As String = Evrensel + "\hardware/tools/avr/bin/avrdude -C" + Evrensel + "/hardware/tools/avr/etc/avrdude.conf -v -v -v -v -patmega328p -carduino -P" + SecilenPort + " -b" + iletisim_hizi.ToString + " -D -Uflash:w:" + Evrensel + "\tempburaya\ArduAhmetTemp.ino.hex:i"
+            Dim foruno As String = Evrensel + "\hardware/tools/avr/bin/avrdude -v -p atmega328p -c arduino -P " + SecilenPort + " -b 115200 -D -U flash:w:" + Evrensel + "\tempburaya\ArduAhmetTemp.ino.hex:i"
+
+
+            If (tahtasec = "uno") Then
                 iletisim_hizi = 9600
+                Shell("cmd.exe /c " + foruno) ' AhmetSon3
+                Shell("cmd.exe /c " + foruno)
             ElseIf (tahtasec = "nano") Then
                 iletisim_hizi = 57600
+                Shell("cmd.exe /c " + AhmetSon3) ' AhmetSon3
+                Shell("cmd.exe /c " + AhmetSon3)
             Else
                 MessageBox.Show("Kritik Hata! -1")
             End If
-            Dim AhmetSon3 As String = Evrensel + "\hardware/tools/avr/bin/avrdude  -F -V -C" + Evrensel + "/hardware/tools/avr/etc/avrdude.conf -v -v -v -v -patmega328p -carduino -P" + SecilenPort + " -b" + iletisim_hizi.ToString + " -D -Uflash:w:" + Evrensel + "\tempburaya\ArduAhmetTemp.ino.hex:i"
-                Shell("cmd.exe /c " + AhmetSon3)
-            '  Uploadtimer2.Enabled = True
 
-            System.Threading.Thread.Sleep(1000)
+
+            Uploadtimer2.Enabled = True
+
+            'System.Threading.Thread.Sleep(1000)
+            'durum.Text = "Karta yükleme işlemi hatasız bir şekilde tamamlandı."
+            'log.Text += "Karta yükleme işlemi hatasız bir şekilde tamamlandı. 5" + vbNewLine
+            'Alt1.BackColor = Color.CornflowerBlue
+            'log.ForeColor = Color.White
+            'ProgressBar1.Value = 100
+            'System.Threading.Thread.Sleep(500)
+            'ProgressBar1.Visible = False
+
+
+        End If
+    End Sub
+
+    Private Sub Uploadtimer2_Tick(sender As Object, e As EventArgs) Handles Uploadtimer2.Tick
+        If (Process.GetProcessesByName("cmd").Count > 0) Then ' Eğer cmd açıksa
+
+        Else ' cemede kapalıysa
+            Uploadtimer2.Enabled = False
             durum.Text = "Karta yükleme işlemi hatasız bir şekilde tamamlandı."
             log.Text += "Karta yükleme işlemi hatasız bir şekilde tamamlandı. 5" + vbNewLine
             Alt1.BackColor = Color.CornflowerBlue
@@ -1793,24 +2025,7 @@ tekrargel:
             ProgressBar1.Value = 100
             System.Threading.Thread.Sleep(500)
             ProgressBar1.Visible = False
-
-
         End If
-    End Sub
-
-    Private Sub Uploadtimer2_Tick(sender As Object, e As EventArgs) Handles Uploadtimer2.Tick
-        'If (Process.GetProcessesByName("cmd").Count > 0) Then ' Eğer cmd açıksa
-
-        'Else ' cemede kapalıysa
-        '    Uploadtimer2.Enabled = False
-        '    durum.Text = "Karta yükleme işlemi hatasız bir şekilde tamamlandı."
-        '    log.Text += "Karta yükleme işlemi hatasız bir şekilde tamamlandı. 5" + vbNewLine
-        '    Alt1.BackColor = Color.CornflowerBlue
-        '    log.ForeColor = Color.White
-        '    ProgressBar1.Value = 100
-        '    System.Threading.Thread.Sleep(500)
-        '    ProgressBar1.Visible = False
-        'End If
     End Sub
 
     Dim eklenenler As New ArrayList
@@ -1819,7 +2034,7 @@ tekrargel:
 
 
         Try
-            OpenFileDialog1.Filter = "TRduino Referans Dosyası(*.trr)|*.trr"
+            OpenFileDialog1.Filter = "TRduino Referans Dosyası(*.trr)|*.trr|C Başlık Dosyası(*.h)|*.h|C Kod Dosyası(*.cpp)|*.cpp"
 
             If (OpenFileDialog1.ShowDialog = DialogResult.OK) Then
                 'TAB 
@@ -1864,6 +2079,41 @@ tekrargel:
                 '                    log.Text += "Bir hata meydana geldi1" + vbNewLine
                 '                End Try
 
+
+
+                'Referans dosyalarından .cpp ile bitenin içindeki bütün include'ları sil
+
+                Try
+                    If (Path.GetExtension(OpenFileDialog1.FileName) = ".cpp") Then
+                        Dim dosyayolu As String = OpenFileDialog1.FileName
+
+
+                        Dim cpp_dosyasi As String
+                        cpp_dosyasi = My.Computer.FileSystem.ReadAllText(dosyayolu)
+
+
+                        Dim sanal As New RichTextBox
+                        sanal.Text = cpp_dosyasi
+
+                        Dim k As Integer = 0
+                        While (k < sanal.Lines.Length)
+
+                            If (sanal.Lines(k).ToLower.Contains("include")) Then
+
+                                sanal.Text = sanal.Text.Replace(sanal.Lines(k), "")
+
+                            End If
+
+                            k = k + 1
+                        End While
+
+                        My.Computer.FileSystem.WriteAllText(dosyayolu, sanal.Text, False)
+
+                    End If
+                Catch ex As Exception
+
+                End Try
+
                 'Raporla
                 Try
                     If (eklenenler.Contains(OpenFileDialog1.FileName)) Then
@@ -1872,14 +2122,14 @@ tekrargel:
                         eklenenler.Add(OpenFileDialog1.FileName)
                         'LİNK VER 
                         'En başa git ve aynı zamanda besttextbox'a geçip yap :)
-                        '    BestTextBox.SelectionStart = 0
-                        '    BestTextBox.SelectionLength = 0
-                        'En sona koyalım daha iyi :))
-                        BestTextBox.Text += vbNewLine
-                        BestTextBox.SelectionStart = BestTextBox.Text.Length
+                        BestTextBox.SelectionStart = 0
                         BestTextBox.SelectionLength = 0
+                        'En sona koyalım daha iyi :))
+                        'BestTextBox.Text += vbNewLine
+                        'BestTextBox.SelectionStart = BestTextBox.Text.Length
+                        'BestTextBox.SelectionLength = 0
                         'Linki ata
-                        BestTextBox.SelectedText = "#Referans <" + OpenFileDialog1.FileName + ">" + vbNewLine
+                        BestTextBox.SelectedText = vbNewLine + "#Referans <" + OpenFileDialog1.FileName + ">" + vbNewLine
 
                     End If
 
@@ -1907,20 +2157,34 @@ tekrargel:
         End Try
     End Sub
 
+
+    Private Sub BloklarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BloklarToolStripMenuItem.Click
+        Try
+            Form2.Show()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub EnUsteGit_Ve_Ekle(ByVal eklenecek As String)
+        BestTextBox.SelectionStart = 0
+        BestTextBox.SelectionLength = 0
+        BestTextBox.SelectedText = eklenecek + vbNewLine
+    End Sub
+
+    Private Sub YorumSatırınaDönüştürToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles YorumSatırınaDönüştürToolStripMenuItem.Click
+
+    End Sub
+
     Private Sub BestTextBox_Load(sender As Object, e As EventArgs) Handles BestTextBox.Load
 
     End Sub
 
-    Private Sub FarklıKaydetToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FarklıKaydetToolStripMenuItem.Click
-
-    End Sub
-
-    Private Sub JokerToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub AToolStripMenuItem1_Click(sender As Object, e As EventArgs)
-
-
+    Private Sub BestTextBox_SelectionChanged(sender As Object, e As EventArgs) Handles BestTextBox.SelectionChanged
+        If BestTextBox.SelectedText.Length >= 1 Then
+            ipucu.Text = "Değişken oluşturmak için CTRL+D kullanabilirsin!"
+        Else
+            ipucu.Text = ""
+        End If
     End Sub
 End Class

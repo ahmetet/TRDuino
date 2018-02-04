@@ -64,6 +64,8 @@ Partial Class Form1
         Me.DueToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SeriPortEkranıToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PortToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BloklarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.YardımToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HakkındaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RenkToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -107,8 +109,14 @@ Partial Class Form1
         Me.serialkontrol = New System.Windows.Forms.Timer(Me.components)
         Me.Uploadtimer = New System.Windows.Forms.Timer(Me.components)
         Me.Uploadtimer2 = New System.Windows.Forms.Timer(Me.components)
+        Me._degiskenler = New System.Windows.Forms.ListBox()
+        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
+        Me.YorumSatırınaDönüştürToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.ipucu = New System.Windows.Forms.ToolStripLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.Alt2.SuspendLayout()
+        Me.Alt3.SuspendLayout()
         Me.Alt1.SuspendLayout()
         Me.Ust2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -118,6 +126,7 @@ Partial Class Form1
         CType(Me.Serial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DerleBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -279,44 +288,44 @@ Partial Class Form1
         'DoğrulaDerleToolStripMenuItem
         '
         Me.DoğrulaDerleToolStripMenuItem.Name = "DoğrulaDerleToolStripMenuItem"
-        Me.DoğrulaDerleToolStripMenuItem.Size = New System.Drawing.Size(307, 26)
-        Me.DoğrulaDerleToolStripMenuItem.Text = "Derle Ve Çalıştır                CTRL+F5"
+        Me.DoğrulaDerleToolStripMenuItem.Size = New System.Drawing.Size(385, 26)
+        Me.DoğrulaDerleToolStripMenuItem.Text = "Derle Ve Çalıştır                (CTRL+F5) (CTRL+U)"
         '
         'DerleToolStripMenuItem
         '
         Me.DerleToolStripMenuItem.Name = "DerleToolStripMenuItem"
-        Me.DerleToolStripMenuItem.Size = New System.Drawing.Size(307, 26)
+        Me.DerleToolStripMenuItem.Size = New System.Drawing.Size(385, 26)
         Me.DerleToolStripMenuItem.Text = "Derle"
         Me.DerleToolStripMenuItem.Visible = False
         '
         'YükleToolStripMenuItem
         '
         Me.YükleToolStripMenuItem.Name = "YükleToolStripMenuItem"
-        Me.YükleToolStripMenuItem.Size = New System.Drawing.Size(307, 26)
+        Me.YükleToolStripMenuItem.Size = New System.Drawing.Size(385, 26)
         Me.YükleToolStripMenuItem.Text = "Yükle"
         Me.YükleToolStripMenuItem.Visible = False
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(304, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(382, 6)
         '
         'KütüphaneEkleToolStripMenuItem
         '
         Me.KütüphaneEkleToolStripMenuItem.Name = "KütüphaneEkleToolStripMenuItem"
-        Me.KütüphaneEkleToolStripMenuItem.Size = New System.Drawing.Size(307, 26)
+        Me.KütüphaneEkleToolStripMenuItem.Size = New System.Drawing.Size(385, 26)
         Me.KütüphaneEkleToolStripMenuItem.Text = "Kütüphane Ekle"
         Me.KütüphaneEkleToolStripMenuItem.Visible = False
         '
         'TRduinoReferansDosyasıEkleToolStripMenuItem
         '
         Me.TRduinoReferansDosyasıEkleToolStripMenuItem.Name = "TRduinoReferansDosyasıEkleToolStripMenuItem"
-        Me.TRduinoReferansDosyasıEkleToolStripMenuItem.Size = New System.Drawing.Size(307, 26)
+        Me.TRduinoReferansDosyasıEkleToolStripMenuItem.Size = New System.Drawing.Size(385, 26)
         Me.TRduinoReferansDosyasıEkleToolStripMenuItem.Text = "TRduino Referans Dosyası Ekle"
         '
         'AraçlarToolStripMenuItem
         '
-        Me.AraçlarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.KartToolStripMenuItem, Me.SeriPortEkranıToolStripMenuItem, Me.PortToolStripMenuItem})
+        Me.AraçlarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.KartToolStripMenuItem, Me.SeriPortEkranıToolStripMenuItem, Me.PortToolStripMenuItem, Me.ToolStripSeparator5, Me.BloklarToolStripMenuItem, Me.ToolStripSeparator6, Me.YorumSatırınaDönüştürToolStripMenuItem})
         Me.AraçlarToolStripMenuItem.Name = "AraçlarToolStripMenuItem"
         Me.AraçlarToolStripMenuItem.Size = New System.Drawing.Size(65, 24)
         Me.AraçlarToolStripMenuItem.Text = "Araçlar"
@@ -325,67 +334,80 @@ Partial Class Form1
         '
         Me.KartToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArduinoToolStripMenuItem, Me.NanoToolStripMenuItem, Me.LeonardoToolStripMenuItem, Me.MegaToolStripMenuItem, Me.ZeroToolStripMenuItem, Me.YunToolStripMenuItem, Me.DueToolStripMenuItem})
         Me.KartToolStripMenuItem.Name = "KartToolStripMenuItem"
-        Me.KartToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
+        Me.KartToolStripMenuItem.Size = New System.Drawing.Size(237, 26)
         Me.KartToolStripMenuItem.Text = "Kart"
         '
         'ArduinoToolStripMenuItem
         '
         Me.ArduinoToolStripMenuItem.Name = "ArduinoToolStripMenuItem"
-        Me.ArduinoToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
+        Me.ArduinoToolStripMenuItem.Size = New System.Drawing.Size(143, 26)
         Me.ArduinoToolStripMenuItem.Text = "Uno"
+        Me.ArduinoToolStripMenuItem.Visible = False
         '
         'NanoToolStripMenuItem
         '
         Me.NanoToolStripMenuItem.Name = "NanoToolStripMenuItem"
-        Me.NanoToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
+        Me.NanoToolStripMenuItem.Size = New System.Drawing.Size(143, 26)
         Me.NanoToolStripMenuItem.Text = "Nano"
         '
         'LeonardoToolStripMenuItem
         '
         Me.LeonardoToolStripMenuItem.Name = "LeonardoToolStripMenuItem"
-        Me.LeonardoToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
+        Me.LeonardoToolStripMenuItem.Size = New System.Drawing.Size(143, 26)
         Me.LeonardoToolStripMenuItem.Text = "Leonardo"
         Me.LeonardoToolStripMenuItem.Visible = False
         '
         'MegaToolStripMenuItem
         '
         Me.MegaToolStripMenuItem.Name = "MegaToolStripMenuItem"
-        Me.MegaToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
+        Me.MegaToolStripMenuItem.Size = New System.Drawing.Size(143, 26)
         Me.MegaToolStripMenuItem.Text = "Mega"
         Me.MegaToolStripMenuItem.Visible = False
         '
         'ZeroToolStripMenuItem
         '
         Me.ZeroToolStripMenuItem.Name = "ZeroToolStripMenuItem"
-        Me.ZeroToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
+        Me.ZeroToolStripMenuItem.Size = New System.Drawing.Size(143, 26)
         Me.ZeroToolStripMenuItem.Text = "Zero"
         Me.ZeroToolStripMenuItem.Visible = False
         '
         'YunToolStripMenuItem
         '
         Me.YunToolStripMenuItem.Name = "YunToolStripMenuItem"
-        Me.YunToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
+        Me.YunToolStripMenuItem.Size = New System.Drawing.Size(143, 26)
         Me.YunToolStripMenuItem.Text = "Yun"
         Me.YunToolStripMenuItem.Visible = False
         '
         'DueToolStripMenuItem
         '
         Me.DueToolStripMenuItem.Name = "DueToolStripMenuItem"
-        Me.DueToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
+        Me.DueToolStripMenuItem.Size = New System.Drawing.Size(143, 26)
         Me.DueToolStripMenuItem.Text = "Due"
         Me.DueToolStripMenuItem.Visible = False
         '
         'SeriPortEkranıToolStripMenuItem
         '
         Me.SeriPortEkranıToolStripMenuItem.Name = "SeriPortEkranıToolStripMenuItem"
-        Me.SeriPortEkranıToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
+        Me.SeriPortEkranıToolStripMenuItem.Size = New System.Drawing.Size(237, 26)
         Me.SeriPortEkranıToolStripMenuItem.Text = "Seri Port Ekranı"
         '
         'PortToolStripMenuItem
         '
         Me.PortToolStripMenuItem.Name = "PortToolStripMenuItem"
-        Me.PortToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
+        Me.PortToolStripMenuItem.Size = New System.Drawing.Size(237, 26)
         Me.PortToolStripMenuItem.Text = "Port"
+        '
+        'ToolStripSeparator5
+        '
+        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(234, 6)
+        '
+        'BloklarToolStripMenuItem
+        '
+        Me.BloklarToolStripMenuItem.Name = "BloklarToolStripMenuItem"
+        Me.BloklarToolStripMenuItem.Size = New System.Drawing.Size(237, 26)
+        Me.BloklarToolStripMenuItem.Text = "Bloklar"
+        Me.BloklarToolStripMenuItem.Visible = False
         '
         'YardımToolStripMenuItem
         '
@@ -398,7 +420,7 @@ Partial Class Form1
         'HakkındaToolStripMenuItem
         '
         Me.HakkındaToolStripMenuItem.Name = "HakkındaToolStripMenuItem"
-        Me.HakkındaToolStripMenuItem.Size = New System.Drawing.Size(141, 26)
+        Me.HakkındaToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
         Me.HakkındaToolStripMenuItem.Text = "Hakkında"
         '
         'RenkToolStripMenuItem
@@ -524,6 +546,7 @@ Partial Class Form1
         'Alt3
         '
         Me.Alt3.BackColor = System.Drawing.Color.MidnightBlue
+        Me.Alt3.Controls.Add(Me.ToolStrip1)
         Me.Alt3.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Alt3.Location = New System.Drawing.Point(0, 170)
         Me.Alt3.Name = "Alt3"
@@ -534,6 +557,7 @@ Partial Class Form1
         '
         Me.Alt1.BackColor = System.Drawing.Color.CornflowerBlue
         Me.Alt1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Alt1.Controls.Add(Me._degiskenler)
         Me.Alt1.Controls.Add(Me.ProgressBar1)
         Me.Alt1.Controls.Add(Me.durum)
         Me.Alt1.Dock = System.Windows.Forms.DockStyle.Top
@@ -783,6 +807,46 @@ Partial Class Form1
         '
         Me.Uploadtimer2.Interval = 1
         '
+        '_degiskenler
+        '
+        Me._degiskenler.FormattingEnabled = True
+        Me._degiskenler.ItemHeight = 16
+        Me._degiskenler.Location = New System.Drawing.Point(274, 7)
+        Me._degiskenler.Name = "_degiskenler"
+        Me._degiskenler.Size = New System.Drawing.Size(157, 84)
+        Me._degiskenler.TabIndex = 2
+        Me._degiskenler.Visible = False
+        '
+        'ToolStripSeparator6
+        '
+        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(234, 6)
+        '
+        'YorumSatırınaDönüştürToolStripMenuItem
+        '
+        Me.YorumSatırınaDönüştürToolStripMenuItem.Name = "YorumSatırınaDönüştürToolStripMenuItem"
+        Me.YorumSatırınaDönüştürToolStripMenuItem.Size = New System.Drawing.Size(237, 26)
+        Me.YorumSatırınaDönüştürToolStripMenuItem.Text = "Yorum Satırına Dönüştür"
+        Me.YorumSatırınaDönüştürToolStripMenuItem.Visible = False
+        '
+        'ToolStrip1
+        '
+        Me.ToolStrip1.BackColor = System.Drawing.Color.Transparent
+        Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ipucu})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.Size = New System.Drawing.Size(1164, 25)
+        Me.ToolStrip1.TabIndex = 0
+        Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'ipucu
+        '
+        Me.ipucu.ForeColor = System.Drawing.Color.Lime
+        Me.ipucu.Name = "ipucu"
+        Me.ipucu.Size = New System.Drawing.Size(122, 22)
+        Me.ipucu.Text = "TRDUINO İP UCU"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -799,6 +863,8 @@ Partial Class Form1
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.Alt2.ResumeLayout(False)
+        Me.Alt3.ResumeLayout(False)
+        Me.Alt3.PerformLayout()
         Me.Alt1.ResumeLayout(False)
         Me.Alt1.PerformLayout()
         Me.Ust2.ResumeLayout(False)
@@ -811,6 +877,8 @@ Partial Class Form1
         CType(Me.Serial, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DerleBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -898,4 +966,11 @@ Partial Class Form1
     Friend WithEvents kodlarorjinal As RichTextBox
     Friend WithEvents TRduinoReferansDosyasıEkleToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ListBox4 As ListBox
+    Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
+    Friend WithEvents BloklarToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents _degiskenler As ListBox
+    Friend WithEvents ToolStripSeparator6 As ToolStripSeparator
+    Friend WithEvents YorumSatırınaDönüştürToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents ipucu As ToolStripLabel
 End Class
