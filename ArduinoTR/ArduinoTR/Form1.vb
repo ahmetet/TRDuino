@@ -15,7 +15,7 @@ Public Class Form1
 
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        DEGISKENLERIN_LISTESI.Items.Clear()
 gell:
 
 
@@ -59,7 +59,8 @@ gell:
     End Sub
 
     Private Sub YeniToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles YeniToolStripMenuItem.Click
-
+        DEGISKENLERIN_LISTESI.Items.Clear()
+        _degiskenler.Items.Clear()
         BestTextBox.SelectionStart = 67
         Try
 
@@ -360,6 +361,20 @@ gell:
                 keyboard_S = False
             End If
 
+
+        ElseIf (e.KeyCode = Keys.M) Then
+            keyboard_M = True
+            If (keyboard_control = True) Then
+                If SecilenPort = "" Then
+                    MessageBox.Show("Lütfen Port Seçiniz")
+                Else
+                    SerialEkran.Text = "Seri İletişim Penceresi " + SecilenPort
+                    SerialEkran.Show()
+                End If
+                keyboard_control = False
+                keyboard_M = False
+            End If
+
         ElseIf (e.KeyCode = Keys.N) Then
             keyboard_N = True
             If (keyboard_control = True) Then
@@ -386,7 +401,11 @@ gell:
         ElseIf (e.KeyCode = Keys.Q) Then
             keyboard_Q = True
             If (keyboard_control = True) Then
-                Me.Close()
+                Try
+                    End
+                Catch ex As Exception
+                    log.Text += "Bir hata meydana geldi: 84 " + ex.Message + vbNewLine
+                End Try
                 keyboard_control = False
                 keyboard_Q = False
             End If
@@ -429,49 +448,75 @@ gell:
 
             If (keyboard_control = True) Then
 
-                'Eğer seçilen değişken daha önce tanımlandıysa/tanımlanmadıysa
-                For Each degiskencik In _degiskenler.Items
-                        'tür@değişken_adı@değişken_değeri
-                        If (degiskencik.ToString.Split("@")(1).ToString = BestTextBox.SelectedText.ToString) Then
-                            'Burada değiştirme öne sürülebilir ilerleyen zaamanlarda.
-                            GoTo bitir
+
+                'Değişkenleri süz
+                For Each satir In BestTextBox.Lines
+                    For Each anahtar In tanimlama_keywords
+                        If (satir.ToLower.Contains(anahtar.ToLower) And Not DEGISKENLERIN_LISTESI.Items.Contains(satir)) Then
+                            DEGISKENLERIN_LISTESI.Items.Add(satir.Replace(anahtar, "").Replace(";", "").Replace("=", "").Trim())
                         End If
                     Next
+                Next
 
+                'TAM SAYI X = 15;
+                For Each ahmet In DEGISKENLERIN_LISTESI.Items
 
-                    Dim degisken_adi As String = "" 'değişken adı
-                    Dim eskiyer As Integer = BestTextBox.SelectionStart ' eskiyeri sapta
-
-                    'Eğer seçilen şey hiçbir şeyse/değilse
-                    If (BestTextBox.SelectedText.Trim = "") Then
-                        'hiçbir şey seçmediin demek ya da boşluk seçtin demek
+                    If (ahmet.ToString.ToLower = BestTextBox.SelectedText.ToLower) Then
+                        'bitir
+                        GoTo bitir
                     Else
-                        degisken_adi = BestTextBox.SelectedText
+                        'devam et
+
                     End If
 
+                Next
 
-                    Dim degisken_deger As String = InputBox("Lütfen '" + degisken_adi + "' değişkenine verilecek değeri giriniz;", "Hızlı Değişken")
-                    If (Not degisken_deger.Trim = "") Then ' eğer değişken değeri hiçbir şey girilmediyse ya da boşluk girilmediyse
-                        BestTextBox.SelectedText = degisken_adi
-                        EnUsteGit_Ve_Ekle("Değişken " + degisken_adi + " = " + degisken_deger + ";")
-                        Dim _DEGISKEN As String = "Değişken@" + degisken_adi + "@" + degisken_deger
-                        _degiskenler.Items.Add(_DEGISKEN)
-                        BestTextBox.SelectionStart = eskiyer + degisken_adi.Length + 2  'eski yere git
-                        'islem bitir
+
+
+
+                'Eğer seçilen değişken daha önce tanımlandıysa/tanımlanmadıysa
+                For Each degiskencik In _degiskenler.Items
+                    'tür@değişken_adı@değişken_değeri
+                    If (degiskencik.ToString.Split("@")(1).ToString = BestTextBox.SelectedText.ToString) Then
+                        'Burada değiştirme öne sürülebilir ilerleyen zaamanlarda.
+                        GoTo bitir
                     End If
+                Next
 
 
+                Dim degisken_adi As String = "" 'değişken adı
+                Dim eskiyer As Integer = BestTextBox.SelectionStart ' eskiyeri sapta
 
-bitir:
-                    keyboard_control = False
-                    keyboard_D = False
+                'Eğer seçilen şey hiçbir şeyse/değilse
+                If (BestTextBox.SelectedText.Trim = "") Then
+                    'hiçbir şey seçmediin demek ya da boşluk seçtin demek
+                Else
+                    degisken_adi = BestTextBox.SelectedText
+                End If
+
+
+                Dim degisken_deger As String = InputBox("Lütfen '" + degisken_adi + "' değişkenine verilecek değeri giriniz;", "Hızlı Değişken")
+                If (Not degisken_deger.Trim = "") Then ' eğer değişken değeri hiçbir şey girilmediyse ya da boşluk girilmediyse
+                    BestTextBox.SelectedText = degisken_adi
+                    EnUsteGit_Ve_Ekle("Değişken " + degisken_adi + " = " + degisken_deger + ";")
+                    Dim _DEGISKEN As String = "Değişken@" + degisken_adi + "@" + degisken_deger
+                    _degiskenler.Items.Add(_DEGISKEN)
+                    BestTextBox.SelectionStart = eskiyer + degisken_adi.Length + 2  'eski yere git
+                    'islem bitir
                 End If
 
 
 
+bitir:
+                keyboard_control = False
+                keyboard_D = False
+            End If
 
 
-            Else
+
+
+
+        Else
             keyboard_control = False
             sense.Visible = False
         End If
@@ -544,7 +589,7 @@ bitir:
 
     Private Sub AçCTRLOToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AçCTRLOToolStripMenuItem.Click
         Try
-            OpenFileDialog1.Filter = "TRduino Kod Dosyası(*.tr)|*.tr|Arduino Kod Dosyası(*.ino)|*.ino"
+            OpenFileDialog1.Filter = "TRduino Kod Dosyası(*.tr)|*.tr|TRduino Referans Dosyası(*.trr)|*.tr|Arduino Kod Dosyası(*.ino)|*.ino"
 
             If (OpenFileDialog1.ShowDialog = DialogResult.OK) Then
                 Poortextbox1_yedek.LoadFile(OpenFileDialog1.FileName, RichTextBoxStreamType.PlainText)
@@ -570,6 +615,17 @@ bitir:
                 ListBox1.Items.Add(BabaTab.Text)
                 ListBox2.Items.Add(OpenFileDialog1.FileName)
                 AddHandler yeni.Click, AddressOf tikla_ac
+
+
+                _degiskenler.Items.Clear()
+                DEGISKENLERIN_LISTESI.Items.Clear()
+                For Each satir In BestTextBox.Lines
+                    For Each anahtar In tanimlama_keywords
+                        If (satir.ToLower.Contains(anahtar.ToLower) And Not DEGISKENLERIN_LISTESI.Items.Contains(satir)) Then
+                            DEGISKENLERIN_LISTESI.Items.Add(satir.Replace(anahtar, "").Replace(";", "").Replace("=", "").Trim())
+                        End If
+                    Next
+                Next
 
             Else
 
@@ -709,7 +765,7 @@ bitir:
 
                 End If
 
-                    temb += 1
+                temb += 1
             End While
 
 
@@ -728,12 +784,13 @@ adim1:
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "reel sayı fonksiyon", "float", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "tam sayı fonksiyon", "int", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "fonksiyon", "void", RegexOptions.IgnoreCase)
+            Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "sınıf", "class", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "pindurumu", "pinMode", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "çıkış", "OUTPUT", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "giriş", "INPUT", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "bekle", "delay", RegexOptions.IgnoreCase)
-            Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "söndür", "LOW", RegexOptions.IgnoreCase)
-            Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "yak", "HIGH", RegexOptions.IgnoreCase)
+            '  Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "söndür", "LOW", RegexOptions.IgnoreCase)
+            '        Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "yak", "HIGH", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "analogoku", "analogRead", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "dijitaloku", "digitalRead", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "iletişim", "Serial", RegexOptions.IgnoreCase)
@@ -761,9 +818,12 @@ adim1:
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "karakter", "char", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "reel sayı", "float", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "tam sayı", "int", RegexOptions.IgnoreCase)
+            Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "pozitif uzun sayı", "unsigned long", RegexOptions.IgnoreCase)
+            Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "uzun sayı", "long", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "kelime", "String", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "pozitif karakter", "unsigned char", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "pozitif tam sayı", "unsigned int", RegexOptions.IgnoreCase)
+
 
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "sabit", "const", RegexOptions.IgnoreCase)
             Poortextbox1_yedek.Text = Regex.Replace(Poortextbox1_yedek.Text, "giriş_pullup", "INPUT_PULLUP", RegexOptions.IgnoreCase)
@@ -789,7 +849,7 @@ adim1:
             Dim b As Integer = 0
             While (b < Poortextbox1_yedek.Lines.Length)
 
-                If (Poortextbox1_yedek.Lines(b).ToLower.Contains("yaz") And Poortextbox1_yedek.Lines(b).ToLower.Contains("aktif")) Then
+                If (Poortextbox1_yedek.Lines(b).ToLower.Contains("yaz") And (Poortextbox1_yedek.Lines(b).ToLower.Contains("aktif") Or Poortextbox1_yedek.Lines(b).ToLower.Contains("yak"))) Then
                     'satır b
 
 
@@ -800,7 +860,7 @@ adim1:
                     Poortextbox1_yedek.SelectedText = Regex.Replace(k, "yaz", "digitalWrite", RegexOptions.IgnoreCase)
 
                     '  Degis(sonhal, b, Poortextbox1_yedek)
-                ElseIf (Poortextbox1_yedek.Lines(b).ToLower.Contains("yaz") And Poortextbox1_yedek.Lines(b).ToLower.Contains("pasif")) Then
+                ElseIf (Poortextbox1_yedek.Lines(b).ToLower.Contains("yaz") And (Poortextbox1_yedek.Lines(b).ToLower.Contains("pasif") Or Poortextbox1_yedek.Lines(b).ToLower.Contains("söndür"))) Then
                     'satır b
                     Dim sonhal As String = Poortextbox1_yedek.Lines(b).Replace("yaz", "digitalWrite")
                     Dim k As String = Poortextbox1_yedek.Lines(b)
@@ -1438,6 +1498,8 @@ process_bitsin_bekle:
     End Sub
 
     Private Sub AraçlarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AraçlarToolStripMenuItem.Click
+
+
         Try
             PortToolStripMenuItem.DropDownItems.Clear()
 
@@ -1452,11 +1514,7 @@ process_bitsin_bekle:
         End Try
     End Sub
 
-    Private Sub AToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AToolStripMenuItem.Click
-        Dim cikti As String = "C:\inoET\Compile\cikti"
-        My.Computer.FileSystem.DeleteDirectory(cikti, FileIO.UIOption.AllDialogs, FileIO.RecycleOption.SendToRecycleBin)
-        My.Computer.FileSystem.CreateDirectory(cikti)
-    End Sub
+
 
     Private Sub KomutlarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles KomutlarToolStripMenuItem.Click
         '  MessageBox.Show(Label3.Text)
@@ -1658,7 +1716,7 @@ process_bitsin_bekle:
     Private tanimlama_keywords As New ArrayList()
     Private methods As String() = {"Hazırsa()", "Bitir();", "Oku();", "Başlat();", "GönderASG();", "Gönder();"}
     Private snippets As String() = {"İletişim.^", "Bekle(^Süre);", "DijitalOku(^Pin);", "AnalogOku(^Pin);", "PinDurumu(^Pin,ÇIKIŞ);", "PinDurumu(^Pin,GİRİŞ);", "Yaz(^Pin,AKTİF);", "Yaz(^Pin,PASİF);", "Yaz(^Pin,Değer);", "Eğer(^Şart)" + vbNewLine + "{" + vbNewLine + "Komut;" + vbNewLine + "}", "Eğer(^Şart)" + vbNewLine + "{" + vbNewLine + "Komut;" + vbNewLine + "}" + vbNewLine + "Aksi Halde" + vbNewLine + "{" + vbNewLine + "Komut;" + vbNewLine + "}", "Eğer(^Şart)" + vbNewLine + "{" + vbNewLine + "Komut;" + vbNewLine + "}" + vbNewLine + "Ya da (Şart)" + vbNewLine + "{" + vbNewLine + "Komut;" + vbNewLine + "}" + vbNewLine + "Aksi  Halde" + vbNewLine + "{" + vbNewLine + "Komut;" + vbNewLine + "}"}
-    Private declarationSnippets As String() = {"Fonksiyon ^FonksiyonAdı() {" & vbLf & vbLf & "}", "Tam Sayı Fonksiyon ^FonksiyonAdı() {" & vbLf & vbLf & "döndür 0;" + vbLf + "}", "Karakter Fonksiyon ^FonksiyonAdı() {" & vbLf & vbLf & "döndür 0;" + vbLf + "}", "Mantıksal Fonksiyon ^FonksiyonAdı() {" & vbLf & vbLf & "döndür 0;" + vbLf + "}", "Kelime Fonksiyon ^FonksiyonAdı() {" & vbLf & vbLf & "döndür ""kelimecik""; " + vbLf + "}", "Reel Sayı Fonksiyon ^FonksiyonAdı() {" & vbLf & vbLf & "döndür 0;" + vbLf + "}", "Döngü (^) {" & vbLf & "}", "Döngü (^;;) {" & vbLf & "}"}
+    Private declarationSnippets As String() = {"Fonksiyon ^FonksiyonAdı() {" & vbLf & vbLf & "}", "Tam Sayı Fonksiyon ^FonksiyonAdı() {" & vbLf & vbLf & "döndür 0;" + vbLf + "}", "Karakter Fonksiyon ^FonksiyonAdı() {" & vbLf & vbLf & "döndür 0;" + vbLf + "}", "Mantıksal Fonksiyon ^FonksiyonAdı() {" & vbLf & vbLf & "döndür 0;" + vbLf + "}", "Kelime Fonksiyon ^FonksiyonAdı() {" & vbLf & vbLf & "döndür ""kelimecik""; " + vbLf + "}", "Reel Sayı Fonksiyon ^FonksiyonAdı() {" & vbLf & vbLf & "döndür 0;" + vbLf + "}", "Döngü (^) {" & vbLf & "}", "Döngü (^;;) {" & vbLf & "}", "Sınıf ^SınıfAdı{" & vbLf & vbLf & "};"}
 
     Public Sub New()
         keywords2.Add("Döndür")
@@ -1683,6 +1741,10 @@ process_bitsin_bekle:
         keywords2.Add("Pozitif Tam Sayı")
         keywords2.Add("Pozitif Karakter")
         keywords2.Add("Değişken")
+        keywords2.Add("Pozitif Uzun Sayı")
+        keywords2.Add("Uzun Sayı")
+
+
 
         tanimlama_keywords.Add("Dizi")
         tanimlama_keywords.Add("Mantıksal")
@@ -1694,6 +1756,7 @@ process_bitsin_bekle:
         tanimlama_keywords.Add("Kelime")
         tanimlama_keywords.Add("Pozitif Tam Sayı")
         tanimlama_keywords.Add("Pozitif Karakter")
+        tanimlama_keywords.Add("Değişken")
 
         InitializeComponent()
 
@@ -1873,6 +1936,8 @@ process_bitsin_bekle:
     Private DEGISKEN As Style = New TextStyle(Brushes.Red, Nothing, FontStyle.Regular)
     Private İletişim As Style = New TextStyle(Brushes.Orange, Nothing, FontStyle.Bold)
     Private İletişimKomutları As Style = New TextStyle(Brushes.Orange, Nothing, FontStyle.Regular)
+    Private tektirnak As TextStyle = New TextStyle(Brushes.Green, Nothing, FontStyle.Regular)
+    Private cifttirnak As TextStyle = New TextStyle(Brushes.Purple, Nothing, FontStyle.Italic)
 
     'KAFAN KARISMASIN DİYE SÖYLÜYORUM
     'HIGHLIGHT YAPARKEN IGNORE CASE DIYEBİLİRSİN ÇÜNKÜ ZATEN DERLENİRKEN HEPSİ LOWER OLARAK DERLENECEK
@@ -1880,24 +1945,32 @@ process_bitsin_bekle:
     'adam giriş yazdığında da doğru GİRİŞ yazdığında da,fakat resmi olarak GİRİŞ
     Private Sub degislan(sender As Object, e As TextChangedEventArgs) Handles BestTextBox.TextChanged
         ' e.ChangedRange.ClearStyle(New Style() {Me.YorumSatırı})
-        ' e.ChangedRange.SetStyle(Me.YorumSatırı, "//[^>]+") ' YORUM SATIRI
-        e.ChangedRange.ClearStyle(New Style() {Me.ReferansEkle})
+
+        e.ChangedRange.ClearStyle(New Style() {Me.ReferansEkle, Me.cifttirnak, Me.tektirnak, Me.YorumSatırı})
+        e.ChangedRange.SetStyle(Me.YorumSatırı, "//[^>\n]+") ' YORUM SATIRIs
+
+
         e.ChangedRange.SetStyle(Me.ReferansEkle, "#[^\n]+") ' Referans için, \n bu bitirme trigi
+        e.ChangedRange.SetStyle(Me.cifttirnak, """(.|\n)*?""") '  " için
+        e.ChangedRange.SetStyle(Me.tektirnak, "'(.|\n)*?'") '  ' için
+
+        'Dim ahmetex As New Regex("<(.|\n)*?>")
         CType(sender, FastColoredTextBox).Range.ClearStyle(New Style() {Me.İletişimKomutları, Me.İletişim, Me.Kontrol, Me.DEGISKEN, Me.FonksiyonAd, Me.IOlar, Me.Fonksiyonn, Me.Tanımlamalar, Me.AnaKomutlar}) ' Temizle
         CType(sender, FastColoredTextBox).Range.SetStyle(Me.Kontrol, "\b(değilse|eğer|aksi halde|ya da)\b", RegexOptions.IgnoreCase) ' Uygula
         CType(sender, FastColoredTextBox).Range.SetStyle(Me.IOlar, "\b(DÖNDÜR|döndür|Döndür|DOĞRU|YANLIŞ|GÖMÜLÜ_LED|KARTTAKİ_LED|ÇIKIŞ|GİRİŞ|GİRİŞ_PULLUP|AKTİF|PASİF|SÖNDÜR|YAK)\b", RegexOptions.IgnoreCase) ' Uygula
-        CType(sender, FastColoredTextBox).Range.SetStyle(Me.Fonksiyonn, "\b(fonksiyon)\b", RegexOptions.IgnoreCase) ' Uygula
-        CType(sender, FastColoredTextBox).Range.SetStyle(Me.Tanımlamalar, "\b(Dizi|Mantıksal|Bayt|Karakter|Reel Sayı|Tam Sayı|Kelime|Pozitif Tam Sayı|Pozitif Karakter|Değişken)\b", RegexOptions.IgnoreCase) ' Uygula
+        CType(sender, FastColoredTextBox).Range.SetStyle(Me.Fonksiyonn, "\b(fonksiyon|Sınıf)\b", RegexOptions.IgnoreCase) ' Uygula
+        CType(sender, FastColoredTextBox).Range.SetStyle(Me.Tanımlamalar, "\b(Dizi|Mantıksal|Bayt|Karakter|Reel Sayı|Tam Sayı|Kelime|Pozitif Tam Sayı|Pozitif Karakter|Değişken|Uzun Sayı|Pozitif Uzun Sayı)\b", RegexOptions.IgnoreCase) ' Uygula
         CType(sender, FastColoredTextBox).Range.SetStyle(Me.AnaKomutlar, "\b(Yaz|PinDurumu|DijitalOku|AnalogOku|Bekle|Döngü)\b", RegexOptions.IgnoreCase) ' Uygula
         CType(sender, FastColoredTextBox).Range.SetStyle(Me.İletişim, "\b(iletişim)\b", RegexOptions.IgnoreCase) ' Uygula
         CType(sender, FastColoredTextBox).Range.SetStyle(Me.İletişimKomutları, "\b(başlat|gönder|gönderasg|hazırsa|bitir|oku)\b", RegexOptions.IgnoreCase) ' Uygula
         CType(sender, FastColoredTextBox).Range.SetStyle(Me.ReferansEkle, "\b(Referans|referans|REFERANS)\b", RegexOptions.IgnoreCase) ' Uygula
 
-        For Each found As Range In CType(sender, FastColoredTextBox).GetRanges("\b(fonksiyon|FONKSİYON|Fonksiyon)\s+(?<range>\w+)\b")
+        For Each found As Range In CType(sender, FastColoredTextBox).GetRanges("\b(fonksiyon|FONKSİYON|Fonksiyon|Sınıf|sınıf|SINIF)\s+(?<range>\w+)\b")
             CType(sender, FastColoredTextBox).Range.SetStyle(Me.FonksiyonAd, "\b" + found.Text + "\b")
         Next
-        For Each found As Range In CType(sender, FastColoredTextBox).GetRanges("\b(Dizi|Mantıksal|Bayt|Karakter|Reel Sayı|Tam Sayı|Kelime|Pozitif Tam Sayı|Pozitif Karakter|Değişken)\s+(?<range>\w+)\b", RegexOptions.IgnoreCase)
+        For Each found As Range In CType(sender, FastColoredTextBox).GetRanges("\b(Dizi|Mantıksal|Bayt|Karakter|Reel Sayı|Tam Sayı|Kelime|Pozitif Tam Sayı|Pozitif Karakter|Değişken|Uzun Sayı|Pozitif Uzun Sayı)\s+(?<range>\w+)\b", RegexOptions.IgnoreCase)
             CType(sender, FastColoredTextBox).Range.SetStyle(Me.DEGISKEN, "\b" + found.Text + "\b")
+
         Next
 
         e.ChangedRange.ClearFoldingMarkers()
@@ -2061,7 +2134,7 @@ tekrar_kontrol:
                 Onunki.Text = Gecici_al.Text
 
                 'OPSİYONEL
-                Onunki.Text = Onunki.Text.Replace("void setup", "Fonksiyon Ayarlar").Replace("void loop", "Fonksiyon Tekrarlar").Replace("unsigned Char", "Pozitif Karakter").Replace("unsigned int", "Pozitif Tam Sayı").Replace("pinMode", "PinDurumu").Replace("OUTPUT", "ÇIKIŞ").Replace("INPUT", "GİRİŞ").Replace("delay", "Bekle").Replace("LOW", "PASİF").Replace("HIGH", "AKTİF").Replace("analogRead", "AnalogOku").Replace("digitalRead", "DijitalOku").Replace("Serial", "İletişim").Replace(".begin", ".Başlat").Replace(".available", ".Hazırsa").Replace("else if", "Ya da").Replace("else", "Aksi halde").Replace("if", "Eğer").Replace(".println", ".GönderASG").Replace(".print", ".Gönder").Replace(".read", ".Oku").Replace(".End", ".Bitir").Replace("True", "DOĞRU").Replace("False", "YANLIŞ").Replace("LED_BUILTIN", "GÖMÜLÜ_LED").Replace("int", "Tam Sayı").Replace("char", "Karakter").Replace("float", "Reel Sayı").Replace("array", "Dizi").Replace("boolean", "Mantıksal").Replace("byte", "Bayt").Replace("String", "Kelime").Replace("digitalWrite", "Yaz").Replace("analogWrite", "Yaz").Replace("void", "Fonksiyon").Replace("for", "Döngü").Replace("while", "Döngü").Replace("a0", "A0")
+                Onunki.Text = Onunki.Text.Replace("void setup", "Fonksiyon Ayarlar").Replace("void loop", "Fonksiyon Tekrarlar").Replace("unsigned Char", "Pozitif Karakter").Replace("unsigned int", "Pozitif Tam Sayı").Replace("pinMode", "PinDurumu").Replace("OUTPUT", "ÇIKIŞ").Replace("INPUT", "GİRİŞ").Replace("delay", "Bekle").Replace("LOW", "PASİF").Replace("HIGH", "AKTİF").Replace("analogRead", "AnalogOku").Replace("digitalRead", "DijitalOku").Replace("Serial", "İletişim").Replace(".begin", ".Başlat").Replace(".available", ".Hazırsa").Replace("else if", "Ya da").Replace("else", "Aksi halde").Replace("if", "Eğer").Replace(".println", ".GönderASG").Replace(".print", ".Gönder").Replace(".read", ".Oku").Replace(".End", ".Bitir").Replace("True", "DOĞRU").Replace("False", "YANLIŞ").Replace("LED_BUILTIN", "GÖMÜLÜ_LED").Replace("int", "Tam Sayı").Replace("char", "Karakter").Replace("float", "Reel Sayı").Replace("array", "Dizi").Replace("boolean", "Mantıksal").Replace("byte", "Bayt").Replace("String", "Kelime").Replace("digitalWrite", "Yaz").Replace("analogWrite", "Yaz").Replace("for", "Döngü").Replace("while", "Döngü").Replace("a0", "A0").Replace("unsigned long", "Pozitif Uzun Sayı").Replace("long", "Uzun Sayı").Replace("class", "Sınıf")
 
 
 
@@ -2100,7 +2173,13 @@ tekrar_kontrol:
 
                             If (sanal.Lines(k).ToLower.Contains("include")) Then
 
-                                sanal.Text = sanal.Text.Replace(sanal.Lines(k), "")
+                                If (sanal.Lines(k).ToLower.Contains("spi") Or sanal.Lines(k).ToLower.Contains("wire") Or sanal.Lines(k).ToLower.Contains("softwareserial") Or sanal.Lines(k).ToLower.Contains("hid") Or sanal.Lines(k).ToLower.Contains("eeprom") Or sanal.Lines(k).ToLower.Contains("inttypes.h") Or sanal.Lines(k).ToLower.Contains("avr/eeprom.h") Or sanal.Lines(k).ToLower.Contains("avr/io.h")) Then
+
+                                Else
+
+                                    sanal.Text = sanal.Text.Replace(sanal.Lines(k), "")
+                                End If
+
 
                             End If
 
@@ -2173,12 +2252,16 @@ tekrar_kontrol:
     End Sub
 
     Private Sub YorumSatırınaDönüştürToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles YorumSatırınaDönüştürToolStripMenuItem.Click
+        Try
+
+            BestTextBox.SelectedText = "//" + BestTextBox.SelectedText
+
+        Catch ex As Exception
+            log.Text += "Bir hata meydana geldi: 51 " + ex.Message + vbNewLine
+        End Try
 
     End Sub
 
-    Private Sub BestTextBox_Load(sender As Object, e As EventArgs) Handles BestTextBox.Load
-
-    End Sub
 
     Private Sub BestTextBox_SelectionChanged(sender As Object, e As EventArgs) Handles BestTextBox.SelectionChanged
         If BestTextBox.SelectedText.Length >= 1 Then
@@ -2187,4 +2270,89 @@ tekrar_kontrol:
             ipucu.Text = ""
         End If
     End Sub
+
+    Private Sub GözKırpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles GözKırpToolStripMenuItem1.Click
+        Dim referansadres As String = Evrensel + "\referanslar\gozkirp\gozkirp.trr"
+        If (BestTextBox.Text.Contains(referansadres)) Then
+        Else
+
+            TabEkle("Göz Kırp", referansadres)
+            EnUsteGit_Ve_Ekle("#Referans <" + referansadres + ">" + vbNewLine)
+        End If
+    End Sub
+
+    Private Sub TabEkle(ByVal dosyaadi As String, ByVal dosyaadresi As String)
+        Try
+            'TAB 
+            Dim Eklenen_Referans_Tab As New TabPage
+            TabControl1.Controls.Add(Eklenen_Referans_Tab)
+            Eklenen_Referans_Tab.Text = dosyaadi
+            Eklenen_Referans_Tab.Tag = dosyaadresi
+
+            'TABIN TEXTBOXU
+            Dim Onunki As New FastColoredTextBox
+            Onunki.Font = BestTextBox.Font
+            Onunki.Name = dosyaadi
+            Onunki.Dock = DockStyle.Fill
+            Eklenen_Referans_Tab.Controls.Add(Onunki)
+
+            'AYARLARI UYGULA
+            AddHandler Onunki.TextChanged, AddressOf degislan
+            AddHandler Onunki.KeyDown, AddressOf referanslar_icin
+            popupMenu = New AutocompleteMenu(Onunki)
+
+
+            'YAZIYI AL
+            Dim Gecici_al As New RichTextBox
+
+            Gecici_al.LoadFile(dosyaadresi, RichTextBoxStreamType.PlainText)
+            Onunki.Text = Gecici_al.Text
+        Catch ex As Exception
+            log.Text += "Bir hata meydana geldi: 49 " + ex.Message + vbNewLine
+        End Try
+    End Sub
+
+    Private Sub BestTextBox_Load(sender As Object, e As EventArgs) Handles BestTextBox.Load
+
+    End Sub
+
+    Private Sub SatırNumaralarıRengiToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SatırNumaralarıRengiToolStripMenuItem.Click
+        Try
+            ColorDialog1.ShowDialog()
+            BestTextBox.LineNumberColor = ColorDialog1.Color
+        Catch ex As Exception
+            log.Text += "Bir hata meydana geldi: 46 " + ex.Message + vbNewLine
+        End Try
+    End Sub
+    Dim DEGISKENLERIN_LISTESI As New ListBox
+    Private Sub DeğişkenlerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeğişkenlerToolStripMenuItem.Click
+        Try
+            Dim goster As New Form
+            goster.ShowIcon = False
+            goster.Text = Me.Text + " Değişkenler"
+            DEGISKENLERIN_LISTESI.Dock = DockStyle.Fill
+            DEGISKENLERIN_LISTESI.BorderStyle = FlatStyle.Flat
+            goster.Controls.Add(DEGISKENLERIN_LISTESI)
+
+            For Each satir In BestTextBox.Lines
+                For Each anahtar In tanimlama_keywords
+                    If (satir.ToLower.Contains(anahtar.ToLower) And Not DEGISKENLERIN_LISTESI.Items.Contains(satir)) Then
+                        DEGISKENLERIN_LISTESI.Items.Add(satir.Replace(anahtar, "").Replace(";", "").Replace("=", "").Trim())
+                    End If
+                Next
+            Next
+
+
+            Try
+                goster.Show()
+            Catch ex As Exception
+
+            End Try
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class
+
+
+'  BestTextBox.CurrentLineColor = Color.Red Eğer hatalı satırsa

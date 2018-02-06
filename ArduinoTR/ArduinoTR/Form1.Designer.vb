@@ -36,10 +36,13 @@ Partial Class Form1
         Me.GözKırpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AnalogYazmaUygulamasıToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AtamaÖrneğiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.KütüphanelerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GözKırpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.KapatToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.KaydetToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FarklıKaydetToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.SatırNumaralarıRengiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SayfaAyarlarıToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.YazdırToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
@@ -66,13 +69,16 @@ Partial Class Form1
         Me.PortToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.BloklarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
+        Me.YorumSatırınaDönüştürToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HızlıDeğişkenOluşturmaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator()
+        Me.DeğişkenlerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.YardımToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HakkındaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RenkToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.KomutlarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.porttool = New System.Windows.Forms.ToolStripMenuItem()
         Me.karttool = New System.Windows.Forms.ToolStripMenuItem()
+        Me.porttool = New System.Windows.Forms.ToolStripMenuItem()
         Me.Alt2 = New System.Windows.Forms.Panel()
         Me.islenenler = New System.Windows.Forms.ListBox()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
@@ -82,7 +88,10 @@ Partial Class Form1
         Me.ListBox1 = New System.Windows.Forms.ListBox()
         Me.log = New System.Windows.Forms.RichTextBox()
         Me.Alt3 = New System.Windows.Forms.Panel()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.ipucu = New System.Windows.Forms.ToolStripLabel()
         Me.Alt1 = New System.Windows.Forms.Panel()
+        Me._degiskenler = New System.Windows.Forms.ListBox()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.durum = New System.Windows.Forms.Label()
         Me.Ust2 = New System.Windows.Forms.Panel()
@@ -109,14 +118,11 @@ Partial Class Form1
         Me.serialkontrol = New System.Windows.Forms.Timer(Me.components)
         Me.Uploadtimer = New System.Windows.Forms.Timer(Me.components)
         Me.Uploadtimer2 = New System.Windows.Forms.Timer(Me.components)
-        Me._degiskenler = New System.Windows.Forms.ListBox()
-        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
-        Me.YorumSatırınaDönüştürToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.ipucu = New System.Windows.Forms.ToolStripLabel()
+        Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
         Me.MenuStrip1.SuspendLayout()
         Me.Alt2.SuspendLayout()
         Me.Alt3.SuspendLayout()
+        Me.ToolStrip1.SuspendLayout()
         Me.Alt1.SuspendLayout()
         Me.Ust2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -126,7 +132,6 @@ Partial Class Form1
         CType(Me.Serial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DerleBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -134,7 +139,7 @@ Partial Class Form1
         Me.MenuStrip1.BackColor = System.Drawing.Color.White
         Me.MenuStrip1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DosyaToolStripMenuItem, Me.TaslakToolStripMenuItem, Me.AraçlarToolStripMenuItem, Me.YardımToolStripMenuItem, Me.RenkToolStripMenuItem, Me.AToolStripMenuItem, Me.KomutlarToolStripMenuItem, Me.porttool, Me.karttool})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DosyaToolStripMenuItem, Me.TaslakToolStripMenuItem, Me.AraçlarToolStripMenuItem, Me.YardımToolStripMenuItem, Me.KomutlarToolStripMenuItem, Me.karttool, Me.porttool})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(0)
@@ -144,7 +149,7 @@ Partial Class Form1
         '
         'DosyaToolStripMenuItem
         '
-        Me.DosyaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.YeniToolStripMenuItem, Me.AçCTRLOToolStripMenuItem, Me.SonuncuyuAçToolStripMenuItem, Me.TaslakDefteriToolStripMenuItem, Me.ÖrneklerToolStripMenuItem, Me.KapatToolStripMenuItem, Me.KaydetToolStripMenuItem, Me.FarklıKaydetToolStripMenuItem, Me.ToolStripSeparator1, Me.SayfaAyarlarıToolStripMenuItem, Me.YazdırToolStripMenuItem, Me.ToolStripSeparator2, Me.TercihlerToolStripMenuItem, Me.ToolStripSeparator3, Me.ÇıkışToolStripMenuItem})
+        Me.DosyaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.YeniToolStripMenuItem, Me.AçCTRLOToolStripMenuItem, Me.SonuncuyuAçToolStripMenuItem, Me.TaslakDefteriToolStripMenuItem, Me.ÖrneklerToolStripMenuItem, Me.KütüphanelerToolStripMenuItem, Me.KapatToolStripMenuItem, Me.KaydetToolStripMenuItem, Me.FarklıKaydetToolStripMenuItem, Me.ToolStripSeparator1, Me.SatırNumaralarıRengiToolStripMenuItem, Me.SayfaAyarlarıToolStripMenuItem, Me.YazdırToolStripMenuItem, Me.ToolStripSeparator2, Me.TercihlerToolStripMenuItem, Me.ToolStripSeparator3, Me.ÇıkışToolStripMenuItem})
         Me.DosyaToolStripMenuItem.Name = "DosyaToolStripMenuItem"
         Me.DosyaToolStripMenuItem.Size = New System.Drawing.Size(60, 24)
         Me.DosyaToolStripMenuItem.Text = "Dosya"
@@ -152,20 +157,20 @@ Partial Class Form1
         'YeniToolStripMenuItem
         '
         Me.YeniToolStripMenuItem.Name = "YeniToolStripMenuItem"
-        Me.YeniToolStripMenuItem.Size = New System.Drawing.Size(212, 26)
-        Me.YeniToolStripMenuItem.Text = "Yeni          CTRL+N"
+        Me.YeniToolStripMenuItem.Size = New System.Drawing.Size(220, 26)
+        Me.YeniToolStripMenuItem.Text = "Yeni          CTRL + N"
         '
         'AçCTRLOToolStripMenuItem
         '
         Me.AçCTRLOToolStripMenuItem.Name = "AçCTRLOToolStripMenuItem"
-        Me.AçCTRLOToolStripMenuItem.Size = New System.Drawing.Size(212, 26)
-        Me.AçCTRLOToolStripMenuItem.Text = "Aç             CTRL+O"
+        Me.AçCTRLOToolStripMenuItem.Size = New System.Drawing.Size(220, 26)
+        Me.AçCTRLOToolStripMenuItem.Text = "Aç             CTRL + O"
         '
         'SonuncuyuAçToolStripMenuItem
         '
         Me.SonuncuyuAçToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.XToolStripMenuItem})
         Me.SonuncuyuAçToolStripMenuItem.Name = "SonuncuyuAçToolStripMenuItem"
-        Me.SonuncuyuAçToolStripMenuItem.Size = New System.Drawing.Size(212, 26)
+        Me.SonuncuyuAçToolStripMenuItem.Size = New System.Drawing.Size(220, 26)
         Me.SonuncuyuAçToolStripMenuItem.Text = "Sonuncuyu aç"
         Me.SonuncuyuAçToolStripMenuItem.Visible = False
         '
@@ -179,7 +184,7 @@ Partial Class Form1
         '
         Me.TaslakDefteriToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.XToolStripMenuItem1})
         Me.TaslakDefteriToolStripMenuItem.Name = "TaslakDefteriToolStripMenuItem"
-        Me.TaslakDefteriToolStripMenuItem.Size = New System.Drawing.Size(212, 26)
+        Me.TaslakDefteriToolStripMenuItem.Size = New System.Drawing.Size(220, 26)
         Me.TaslakDefteriToolStripMenuItem.Text = "Taslak defteri"
         Me.TaslakDefteriToolStripMenuItem.Visible = False
         '
@@ -193,7 +198,7 @@ Partial Class Form1
         '
         Me.ÖrneklerToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GözKırpToolStripMenuItem, Me.AnalogYazmaUygulamasıToolStripMenuItem, Me.AtamaÖrneğiToolStripMenuItem})
         Me.ÖrneklerToolStripMenuItem.Name = "ÖrneklerToolStripMenuItem"
-        Me.ÖrneklerToolStripMenuItem.Size = New System.Drawing.Size(212, 26)
+        Me.ÖrneklerToolStripMenuItem.Size = New System.Drawing.Size(220, 26)
         Me.ÖrneklerToolStripMenuItem.Text = "Örnekler"
         '
         'GözKırpToolStripMenuItem
@@ -216,67 +221,86 @@ Partial Class Form1
         Me.AtamaÖrneğiToolStripMenuItem.Text = "Atama Örneği"
         Me.AtamaÖrneğiToolStripMenuItem.Visible = False
         '
+        'KütüphanelerToolStripMenuItem
+        '
+        Me.KütüphanelerToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GözKırpToolStripMenuItem1})
+        Me.KütüphanelerToolStripMenuItem.Name = "KütüphanelerToolStripMenuItem"
+        Me.KütüphanelerToolStripMenuItem.Size = New System.Drawing.Size(220, 26)
+        Me.KütüphanelerToolStripMenuItem.Text = "Kütüphaneler"
+        '
+        'GözKırpToolStripMenuItem1
+        '
+        Me.GözKırpToolStripMenuItem1.Name = "GözKırpToolStripMenuItem1"
+        Me.GözKırpToolStripMenuItem1.Size = New System.Drawing.Size(137, 26)
+        Me.GözKırpToolStripMenuItem1.Text = "Göz Kırp"
+        '
         'KapatToolStripMenuItem
         '
         Me.KapatToolStripMenuItem.Name = "KapatToolStripMenuItem"
-        Me.KapatToolStripMenuItem.Size = New System.Drawing.Size(212, 26)
-        Me.KapatToolStripMenuItem.Text = "Kapat " & Global.Microsoft.VisualBasic.ChrW(9) & "        CTRL+W"
+        Me.KapatToolStripMenuItem.Size = New System.Drawing.Size(220, 26)
+        Me.KapatToolStripMenuItem.Text = "Kapat " & Global.Microsoft.VisualBasic.ChrW(9) & "        CTRL + W"
         Me.KapatToolStripMenuItem.Visible = False
         '
         'KaydetToolStripMenuItem
         '
         Me.KaydetToolStripMenuItem.Name = "KaydetToolStripMenuItem"
-        Me.KaydetToolStripMenuItem.Size = New System.Drawing.Size(212, 26)
-        Me.KaydetToolStripMenuItem.Text = "Kaydet       CTRL+S"
+        Me.KaydetToolStripMenuItem.Size = New System.Drawing.Size(220, 26)
+        Me.KaydetToolStripMenuItem.Text = "Kaydet       CTRL + S"
         '
         'FarklıKaydetToolStripMenuItem
         '
         Me.FarklıKaydetToolStripMenuItem.Name = "FarklıKaydetToolStripMenuItem"
-        Me.FarklıKaydetToolStripMenuItem.Size = New System.Drawing.Size(212, 26)
+        Me.FarklıKaydetToolStripMenuItem.Size = New System.Drawing.Size(220, 26)
         Me.FarklıKaydetToolStripMenuItem.Text = "Farklı Kaydet"
         Me.FarklıKaydetToolStripMenuItem.Visible = False
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(209, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(217, 6)
+        '
+        'SatırNumaralarıRengiToolStripMenuItem
+        '
+        Me.SatırNumaralarıRengiToolStripMenuItem.Name = "SatırNumaralarıRengiToolStripMenuItem"
+        Me.SatırNumaralarıRengiToolStripMenuItem.Size = New System.Drawing.Size(220, 26)
+        Me.SatırNumaralarıRengiToolStripMenuItem.Text = "Satır numara rengi"
         '
         'SayfaAyarlarıToolStripMenuItem
         '
         Me.SayfaAyarlarıToolStripMenuItem.Name = "SayfaAyarlarıToolStripMenuItem"
-        Me.SayfaAyarlarıToolStripMenuItem.Size = New System.Drawing.Size(212, 26)
+        Me.SayfaAyarlarıToolStripMenuItem.Size = New System.Drawing.Size(220, 26)
         Me.SayfaAyarlarıToolStripMenuItem.Text = "Sayfa Ayarları"
         Me.SayfaAyarlarıToolStripMenuItem.Visible = False
         '
         'YazdırToolStripMenuItem
         '
         Me.YazdırToolStripMenuItem.Name = "YazdırToolStripMenuItem"
-        Me.YazdırToolStripMenuItem.Size = New System.Drawing.Size(212, 26)
-        Me.YazdırToolStripMenuItem.Text = "Yazdır        CTRL+P"
+        Me.YazdırToolStripMenuItem.Size = New System.Drawing.Size(220, 26)
+        Me.YazdırToolStripMenuItem.Text = "Yazdır        CTRL + P"
         Me.YazdırToolStripMenuItem.Visible = False
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(209, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(217, 6)
         '
         'TercihlerToolStripMenuItem
         '
         Me.TercihlerToolStripMenuItem.Name = "TercihlerToolStripMenuItem"
-        Me.TercihlerToolStripMenuItem.Size = New System.Drawing.Size(212, 26)
+        Me.TercihlerToolStripMenuItem.Size = New System.Drawing.Size(220, 26)
         Me.TercihlerToolStripMenuItem.Text = "Arduino Yolu"
         Me.TercihlerToolStripMenuItem.Visible = False
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(209, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(217, 6)
         '
         'ÇıkışToolStripMenuItem
         '
         Me.ÇıkışToolStripMenuItem.Name = "ÇıkışToolStripMenuItem"
-        Me.ÇıkışToolStripMenuItem.Size = New System.Drawing.Size(212, 26)
-        Me.ÇıkışToolStripMenuItem.Text = "Çıkış           CTRL+Q"
+        Me.ÇıkışToolStripMenuItem.Size = New System.Drawing.Size(220, 26)
+        Me.ÇıkışToolStripMenuItem.Text = "Çıkış           CTRL + Q"
         '
         'TaslakToolStripMenuItem
         '
@@ -288,44 +312,44 @@ Partial Class Form1
         'DoğrulaDerleToolStripMenuItem
         '
         Me.DoğrulaDerleToolStripMenuItem.Name = "DoğrulaDerleToolStripMenuItem"
-        Me.DoğrulaDerleToolStripMenuItem.Size = New System.Drawing.Size(385, 26)
-        Me.DoğrulaDerleToolStripMenuItem.Text = "Derle Ve Çalıştır                (CTRL+F5) (CTRL+U)"
+        Me.DoğrulaDerleToolStripMenuItem.Size = New System.Drawing.Size(401, 26)
+        Me.DoğrulaDerleToolStripMenuItem.Text = "Derle Ve Çalıştır                (CTRL + F5) (CTRL + U)"
         '
         'DerleToolStripMenuItem
         '
         Me.DerleToolStripMenuItem.Name = "DerleToolStripMenuItem"
-        Me.DerleToolStripMenuItem.Size = New System.Drawing.Size(385, 26)
+        Me.DerleToolStripMenuItem.Size = New System.Drawing.Size(401, 26)
         Me.DerleToolStripMenuItem.Text = "Derle"
         Me.DerleToolStripMenuItem.Visible = False
         '
         'YükleToolStripMenuItem
         '
         Me.YükleToolStripMenuItem.Name = "YükleToolStripMenuItem"
-        Me.YükleToolStripMenuItem.Size = New System.Drawing.Size(385, 26)
+        Me.YükleToolStripMenuItem.Size = New System.Drawing.Size(401, 26)
         Me.YükleToolStripMenuItem.Text = "Yükle"
         Me.YükleToolStripMenuItem.Visible = False
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(382, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(398, 6)
         '
         'KütüphaneEkleToolStripMenuItem
         '
         Me.KütüphaneEkleToolStripMenuItem.Name = "KütüphaneEkleToolStripMenuItem"
-        Me.KütüphaneEkleToolStripMenuItem.Size = New System.Drawing.Size(385, 26)
+        Me.KütüphaneEkleToolStripMenuItem.Size = New System.Drawing.Size(401, 26)
         Me.KütüphaneEkleToolStripMenuItem.Text = "Kütüphane Ekle"
         Me.KütüphaneEkleToolStripMenuItem.Visible = False
         '
         'TRduinoReferansDosyasıEkleToolStripMenuItem
         '
         Me.TRduinoReferansDosyasıEkleToolStripMenuItem.Name = "TRduinoReferansDosyasıEkleToolStripMenuItem"
-        Me.TRduinoReferansDosyasıEkleToolStripMenuItem.Size = New System.Drawing.Size(385, 26)
+        Me.TRduinoReferansDosyasıEkleToolStripMenuItem.Size = New System.Drawing.Size(401, 26)
         Me.TRduinoReferansDosyasıEkleToolStripMenuItem.Text = "TRduino Referans Dosyası Ekle"
         '
         'AraçlarToolStripMenuItem
         '
-        Me.AraçlarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.KartToolStripMenuItem, Me.SeriPortEkranıToolStripMenuItem, Me.PortToolStripMenuItem, Me.ToolStripSeparator5, Me.BloklarToolStripMenuItem, Me.ToolStripSeparator6, Me.YorumSatırınaDönüştürToolStripMenuItem})
+        Me.AraçlarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.KartToolStripMenuItem, Me.SeriPortEkranıToolStripMenuItem, Me.PortToolStripMenuItem, Me.ToolStripSeparator5, Me.BloklarToolStripMenuItem, Me.ToolStripSeparator6, Me.YorumSatırınaDönüştürToolStripMenuItem, Me.HızlıDeğişkenOluşturmaToolStripMenuItem, Me.ToolStripSeparator7, Me.DeğişkenlerToolStripMenuItem})
         Me.AraçlarToolStripMenuItem.Name = "AraçlarToolStripMenuItem"
         Me.AraçlarToolStripMenuItem.Size = New System.Drawing.Size(65, 24)
         Me.AraçlarToolStripMenuItem.Text = "Araçlar"
@@ -334,7 +358,7 @@ Partial Class Form1
         '
         Me.KartToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArduinoToolStripMenuItem, Me.NanoToolStripMenuItem, Me.LeonardoToolStripMenuItem, Me.MegaToolStripMenuItem, Me.ZeroToolStripMenuItem, Me.YunToolStripMenuItem, Me.DueToolStripMenuItem})
         Me.KartToolStripMenuItem.Name = "KartToolStripMenuItem"
-        Me.KartToolStripMenuItem.Size = New System.Drawing.Size(237, 26)
+        Me.KartToolStripMenuItem.Size = New System.Drawing.Size(367, 26)
         Me.KartToolStripMenuItem.Text = "Kart"
         '
         'ArduinoToolStripMenuItem
@@ -388,26 +412,54 @@ Partial Class Form1
         'SeriPortEkranıToolStripMenuItem
         '
         Me.SeriPortEkranıToolStripMenuItem.Name = "SeriPortEkranıToolStripMenuItem"
-        Me.SeriPortEkranıToolStripMenuItem.Size = New System.Drawing.Size(237, 26)
-        Me.SeriPortEkranıToolStripMenuItem.Text = "Seri Port Ekranı"
+        Me.SeriPortEkranıToolStripMenuItem.Size = New System.Drawing.Size(367, 26)
+        Me.SeriPortEkranıToolStripMenuItem.Text = "Seri Port Ekranı (CTRL + M)"
         '
         'PortToolStripMenuItem
         '
         Me.PortToolStripMenuItem.Name = "PortToolStripMenuItem"
-        Me.PortToolStripMenuItem.Size = New System.Drawing.Size(237, 26)
+        Me.PortToolStripMenuItem.Size = New System.Drawing.Size(367, 26)
         Me.PortToolStripMenuItem.Text = "Port"
         '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(234, 6)
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(364, 6)
         '
         'BloklarToolStripMenuItem
         '
         Me.BloklarToolStripMenuItem.Name = "BloklarToolStripMenuItem"
-        Me.BloklarToolStripMenuItem.Size = New System.Drawing.Size(237, 26)
+        Me.BloklarToolStripMenuItem.Size = New System.Drawing.Size(367, 26)
         Me.BloklarToolStripMenuItem.Text = "Bloklar"
         Me.BloklarToolStripMenuItem.Visible = False
+        '
+        'ToolStripSeparator6
+        '
+        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(364, 6)
+        '
+        'YorumSatırınaDönüştürToolStripMenuItem
+        '
+        Me.YorumSatırınaDönüştürToolStripMenuItem.Name = "YorumSatırınaDönüştürToolStripMenuItem"
+        Me.YorumSatırınaDönüştürToolStripMenuItem.Size = New System.Drawing.Size(367, 26)
+        Me.YorumSatırınaDönüştürToolStripMenuItem.Text = "Yorum Satırına Dönüştür (CTRL + SHİFT + C)"
+        '
+        'HızlıDeğişkenOluşturmaToolStripMenuItem
+        '
+        Me.HızlıDeğişkenOluşturmaToolStripMenuItem.Name = "HızlıDeğişkenOluşturmaToolStripMenuItem"
+        Me.HızlıDeğişkenOluşturmaToolStripMenuItem.Size = New System.Drawing.Size(367, 26)
+        Me.HızlıDeğişkenOluşturmaToolStripMenuItem.Text = "Hızlı Değişken Oluşturma (CTRL + D)"
+        '
+        'ToolStripSeparator7
+        '
+        Me.ToolStripSeparator7.Name = "ToolStripSeparator7"
+        Me.ToolStripSeparator7.Size = New System.Drawing.Size(364, 6)
+        '
+        'DeğişkenlerToolStripMenuItem
+        '
+        Me.DeğişkenlerToolStripMenuItem.Name = "DeğişkenlerToolStripMenuItem"
+        Me.DeğişkenlerToolStripMenuItem.Size = New System.Drawing.Size(367, 26)
+        Me.DeğişkenlerToolStripMenuItem.Text = "Değişkenler"
         '
         'YardımToolStripMenuItem
         '
@@ -420,22 +472,8 @@ Partial Class Form1
         'HakkındaToolStripMenuItem
         '
         Me.HakkındaToolStripMenuItem.Name = "HakkındaToolStripMenuItem"
-        Me.HakkındaToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
+        Me.HakkındaToolStripMenuItem.Size = New System.Drawing.Size(141, 26)
         Me.HakkındaToolStripMenuItem.Text = "Hakkında"
-        '
-        'RenkToolStripMenuItem
-        '
-        Me.RenkToolStripMenuItem.Name = "RenkToolStripMenuItem"
-        Me.RenkToolStripMenuItem.Size = New System.Drawing.Size(48, 24)
-        Me.RenkToolStripMenuItem.Text = "renk"
-        Me.RenkToolStripMenuItem.Visible = False
-        '
-        'AToolStripMenuItem
-        '
-        Me.AToolStripMenuItem.Name = "AToolStripMenuItem"
-        Me.AToolStripMenuItem.Size = New System.Drawing.Size(28, 24)
-        Me.AToolStripMenuItem.Text = "a"
-        Me.AToolStripMenuItem.Visible = False
         '
         'KomutlarToolStripMenuItem
         '
@@ -443,15 +481,15 @@ Partial Class Form1
         Me.KomutlarToolStripMenuItem.Size = New System.Drawing.Size(76, 24)
         Me.KomutlarToolStripMenuItem.Text = "Komutlar"
         '
-        'porttool
-        '
-        Me.porttool.Name = "porttool"
-        Me.porttool.Size = New System.Drawing.Size(12, 24)
-        '
         'karttool
         '
         Me.karttool.Name = "karttool"
         Me.karttool.Size = New System.Drawing.Size(12, 24)
+        '
+        'porttool
+        '
+        Me.porttool.Name = "porttool"
+        Me.porttool.Size = New System.Drawing.Size(12, 24)
         '
         'Alt2
         '
@@ -553,6 +591,24 @@ Partial Class Form1
         Me.Alt3.Size = New System.Drawing.Size(1164, 25)
         Me.Alt3.TabIndex = 1
         '
+        'ToolStrip1
+        '
+        Me.ToolStrip1.BackColor = System.Drawing.Color.Transparent
+        Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ipucu})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.Size = New System.Drawing.Size(1164, 25)
+        Me.ToolStrip1.TabIndex = 0
+        Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'ipucu
+        '
+        Me.ipucu.ForeColor = System.Drawing.Color.Lime
+        Me.ipucu.Name = "ipucu"
+        Me.ipucu.Size = New System.Drawing.Size(122, 22)
+        Me.ipucu.Text = "TRDUINO İP UCU"
+        '
         'Alt1
         '
         Me.Alt1.BackColor = System.Drawing.Color.CornflowerBlue
@@ -565,6 +621,16 @@ Partial Class Form1
         Me.Alt1.Name = "Alt1"
         Me.Alt1.Size = New System.Drawing.Size(1164, 40)
         Me.Alt1.TabIndex = 0
+        '
+        '_degiskenler
+        '
+        Me._degiskenler.FormattingEnabled = True
+        Me._degiskenler.ItemHeight = 16
+        Me._degiskenler.Location = New System.Drawing.Point(274, 7)
+        Me._degiskenler.Name = "_degiskenler"
+        Me._degiskenler.Size = New System.Drawing.Size(157, 84)
+        Me._degiskenler.TabIndex = 2
+        Me._degiskenler.Visible = False
         '
         'ProgressBar1
         '
@@ -648,7 +714,7 @@ Partial Class Form1
         'BestTextBox
         '
         Me.BestTextBox.AutoCompleteBracketsList = New Char() {Global.Microsoft.VisualBasic.ChrW(40), Global.Microsoft.VisualBasic.ChrW(41), Global.Microsoft.VisualBasic.ChrW(123), Global.Microsoft.VisualBasic.ChrW(125), Global.Microsoft.VisualBasic.ChrW(91), Global.Microsoft.VisualBasic.ChrW(93), Global.Microsoft.VisualBasic.ChrW(34), Global.Microsoft.VisualBasic.ChrW(34), Global.Microsoft.VisualBasic.ChrW(39), Global.Microsoft.VisualBasic.ChrW(39)}
-        Me.BestTextBox.AutoScrollMinSize = New System.Drawing.Size(275, 207)
+        Me.BestTextBox.AutoScrollMinSize = New System.Drawing.Size(704, 230)
         Me.BestTextBox.BackBrush = Nothing
         Me.BestTextBox.CharHeight = 23
         Me.BestTextBox.CharWidth = 11
@@ -659,6 +725,7 @@ Partial Class Form1
         Me.BestTextBox.DisabledColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.BestTextBox.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BestTextBox.Font = New System.Drawing.Font("Consolas", 12.0!)
+        Me.BestTextBox.Hotkeys = resources.GetString("BestTextBox.Hotkeys")
         Me.BestTextBox.IsReplaceMode = False
         Me.BestTextBox.Location = New System.Drawing.Point(3, 3)
         Me.BestTextBox.Name = "BestTextBox"
@@ -667,7 +734,9 @@ Partial Class Form1
         Me.BestTextBox.ServiceColors = CType(resources.GetObject("BestTextBox.ServiceColors"), FastColoredTextBoxNS.ServiceColors)
         Me.BestTextBox.Size = New System.Drawing.Size(1150, 365)
         Me.BestTextBox.TabIndex = 9
-        Me.BestTextBox.Text = "Fonksiyon Ayarlar(){" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "}" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Fonksiyon Tekrarlar(){" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "}" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.BestTextBox.Text = "Fonksiyon Ayarlar(){" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "// Bu bölüme bir kere yapılacak işlemler yazılacak." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "}" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "F" &
+    "onksiyon Tekrarlar(){" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "// Bu bölüme sonsuza kadar tekrarlanacak işlemler yazılac" &
+    "ak." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "}" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.BestTextBox.Zoom = 100
         '
         'sense
@@ -755,9 +824,11 @@ Partial Class Form1
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(920, -65)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(149, 136)
+        Me.Label2.Size = New System.Drawing.Size(392, 136)
         Me.Label2.TabIndex = 3
-        Me.Label2.Text = "Fonksiyon Ayarlar(){" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "}" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Fonksiyon Tekrarlar(){" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "}" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label2.Text = "Fonksiyon Ayarlar(){" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "// Bu bölüme bir kere yapılacak işlemler yazılacak." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "}" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "F" &
+    "onksiyon Tekrarlar(){" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "// Bu bölüme sonsuza kadar tekrarlanacak işlemler yazılac" &
+    "ak." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "}" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.Label2.Visible = False
         '
         'Label1
@@ -807,46 +878,6 @@ Partial Class Form1
         '
         Me.Uploadtimer2.Interval = 1
         '
-        '_degiskenler
-        '
-        Me._degiskenler.FormattingEnabled = True
-        Me._degiskenler.ItemHeight = 16
-        Me._degiskenler.Location = New System.Drawing.Point(274, 7)
-        Me._degiskenler.Name = "_degiskenler"
-        Me._degiskenler.Size = New System.Drawing.Size(157, 84)
-        Me._degiskenler.TabIndex = 2
-        Me._degiskenler.Visible = False
-        '
-        'ToolStripSeparator6
-        '
-        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(234, 6)
-        '
-        'YorumSatırınaDönüştürToolStripMenuItem
-        '
-        Me.YorumSatırınaDönüştürToolStripMenuItem.Name = "YorumSatırınaDönüştürToolStripMenuItem"
-        Me.YorumSatırınaDönüştürToolStripMenuItem.Size = New System.Drawing.Size(237, 26)
-        Me.YorumSatırınaDönüştürToolStripMenuItem.Text = "Yorum Satırına Dönüştür"
-        Me.YorumSatırınaDönüştürToolStripMenuItem.Visible = False
-        '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.BackColor = System.Drawing.Color.Transparent
-        Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ipucu})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(1164, 25)
-        Me.ToolStrip1.TabIndex = 0
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'ipucu
-        '
-        Me.ipucu.ForeColor = System.Drawing.Color.Lime
-        Me.ipucu.Name = "ipucu"
-        Me.ipucu.Size = New System.Drawing.Size(122, 22)
-        Me.ipucu.Text = "TRDUINO İP UCU"
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -865,6 +896,8 @@ Partial Class Form1
         Me.Alt2.ResumeLayout(False)
         Me.Alt3.ResumeLayout(False)
         Me.Alt3.PerformLayout()
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
         Me.Alt1.ResumeLayout(False)
         Me.Alt1.PerformLayout()
         Me.Ust2.ResumeLayout(False)
@@ -877,8 +910,6 @@ Partial Class Form1
         CType(Me.Serial, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DerleBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -929,9 +960,7 @@ Partial Class Form1
     Friend WithEvents durum As Label
     Friend WithEvents ProgressBar1 As ProgressBar
     Friend WithEvents SerialPort1 As IO.Ports.SerialPort
-    Friend WithEvents RenkToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Label1 As Label
-    Friend WithEvents AToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Label2 As Label
     Friend WithEvents GözKırpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AnalogYazmaUygulamasıToolStripMenuItem As ToolStripMenuItem
@@ -950,11 +979,9 @@ Partial Class Form1
     Friend WithEvents NanoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LeonardoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents UploadTakip As Timer
-    Friend WithEvents karttool As ToolStripMenuItem
     Friend WithEvents Serial As PictureBox
     Friend WithEvents Serialbilgi As Label
     Friend WithEvents serialkontrol As Timer
-    Public WithEvents porttool As ToolStripMenuItem
     Friend WithEvents sense As ListBox
     Friend WithEvents BestTextBox As FastColoredTextBoxNS.FastColoredTextBox
     Friend WithEvents MegaToolStripMenuItem As ToolStripMenuItem
@@ -968,9 +995,18 @@ Partial Class Form1
     Friend WithEvents ListBox4 As ListBox
     Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
     Friend WithEvents BloklarToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents _degiskenler As ListBox
     Friend WithEvents ToolStripSeparator6 As ToolStripSeparator
     Friend WithEvents YorumSatırınaDönüştürToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents ipucu As ToolStripLabel
+    Friend WithEvents KütüphanelerToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GözKırpToolStripMenuItem1 As ToolStripMenuItem
+    Public WithEvents karttool As ToolStripMenuItem
+    Public WithEvents porttool As ToolStripMenuItem
+    Friend WithEvents HızlıDeğişkenOluşturmaToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SatırNumaralarıRengiToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ColorDialog1 As ColorDialog
+    Friend WithEvents ToolStripSeparator7 As ToolStripSeparator
+    Friend WithEvents DeğişkenlerToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents _degiskenler As ListBox
 End Class
