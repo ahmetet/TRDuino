@@ -23,3 +23,14 @@ CTRL + D (Hızlı değişken oluşturmak için) eklendi.
 
 İpucu Özelliği eklendi.
 
+05.02.2018 --->>>
+
+Satır numaralarının rengini değiştirebilme opsiyonu eklendi.
+
+(Beta sürüm olarak) Kütüphaneler.. eklendi.
+
+(Beta sürüm olarak) Değişkenler tablosu eklendi.
+
+Yorum satırına dönüştür opsiyonu ve kısayolu (CTRL + SHİFT + C) eklendi.
+
+Seri İletişim Ekranını açmak için kısayol (CTRL + M) eklendi.
